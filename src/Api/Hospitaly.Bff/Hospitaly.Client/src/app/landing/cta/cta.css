@@ -1,0 +1,59 @@
+.cta-section {
+  position: relative;
+  overflow: hidden;
+  padding: 5rem 0;
+  background: #faff69;
+}
+
+.cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background: #0a0a0a;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+  min-width: 180px;
+}
+
+.cta-btn-primary:hover {
+  background: #242424;
+}
+
+.cta-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: #0a0a0a;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 2px solid rgba(10, 10, 10, 0.3);
+  transition: border-color 0.2s ease, background 0.2s ease;
+  min-width: 180px;
+}
+
+.cta-btn-secondary:hover {
+  border-color: #0a0a0a;
+  background: rgba(10, 10, 10, 0.05);
+}
+
+@media (max-width: 640px) {
+  .cta-section {
+    padding: 3.5rem 0;
+  }
+  .cta-btn-primary,
+  .cta-btn-secondary {
+    width: 100%;
+    max-width: 300px;
+  }
+}

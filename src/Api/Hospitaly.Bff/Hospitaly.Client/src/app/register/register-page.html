@@ -1,0 +1,132 @@
+<div class="min-h-screen flex items-center justify-center px-4 py-8">
+  <div class="w-full max-w-md bg-surface-card border border-hairline rounded-xl p-8 md:p-10">
+    <a class="inline-block text-muted text-sm cursor-pointer mb-6 hover:text-on-dark transition-colors" (click)="router.navigate(['/'])">&larr; Back to Home</a>
+
+    <h1 class="text-[32px] font-bold leading-tight -tracking-[1px] text-on-dark mb-2">Create your account</h1>
+    <p class="text-body text-base leading-relaxed mb-8">Join Hospitaly and streamline your clinic management.</p>
+
+    @if (errorMessage(); as msg) {
+      <div class="flex items-center gap-2 bg-error/10 border border-error text-error rounded-lg px-3.5 py-2.5 text-sm mb-5">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <span>{{ msg }}</span>
+      </div>
+    }
+
+    <form #form="ngForm" (ngSubmit)="submit()" class="flex flex-col gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <label class="flex flex-col gap-1.5">
+          <span class="text-body-strong text-sm font-medium">First Name</span>
+          <input
+            name="firstName"
+            type="text"
+            class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary [&.ng-invalid.ng-touched]:!border-error [&.ng-invalid.ng-touched]:focus:!border-error"
+            [(ngModel)]="firstName"
+            required
+            #firstNameCtrl="ngModel"
+          />
+        </label>
+        <label class="flex flex-col gap-1.5">
+          <span class="text-body-strong text-sm font-medium">Last Name</span>
+          <input
+            name="lastName"
+            type="text"
+            class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary [&.ng-invalid.ng-touched]:!border-error [&.ng-invalid.ng-touched]:focus:!border-error"
+            [(ngModel)]="lastName"
+            required
+            #lastNameCtrl="ngModel"
+          />
+        </label>
+      </div>
+
+      <label class="flex flex-col gap-1.5">
+        <span class="text-body-strong text-sm font-medium">Email</span>
+        <input
+          name="email"
+          type="email"
+          class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary [&.ng-invalid.ng-touched]:!border-error [&.ng-invalid.ng-touched]:focus:!border-error"
+          [(ngModel)]="email"
+          required
+          email
+          #emailCtrl="ngModel"
+        />
+      </label>
+
+      <label class="flex flex-col gap-1.5">
+        <span class="text-body-strong text-sm font-medium">Password</span>
+        <input
+          name="password"
+          type="password"
+          class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary [&.ng-invalid.ng-touched]:!border-error [&.ng-invalid.ng-touched]:focus:!border-error"
+          [(ngModel)]="password"
+          required
+          minlength="6"
+          #passwordCtrl="ngModel"
+        />
+        @if (passwordCtrl.invalid && passwordCtrl.touched) {
+          <span class="text-error text-xs leading-relaxed mt-0.5">Minimum 6 characters required</span>
+        }
+      </label>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <label class="flex flex-col gap-1.5">
+          <span class="text-body-strong text-sm font-medium">Sex</span>
+          <select
+            name="sex"
+            class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary [&.ng-invalid.ng-touched]:!border-error"
+            [(ngModel)]="sex"
+            required
+            #sexCtrl="ngModel"
+          >
+            <option value="" disabled class="text-muted">Select sex</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label class="flex flex-col gap-1.5">
+          <span class="text-body-strong text-sm font-medium">Date of Birth</span>
+          <input
+            name="dateOfBirth"
+            type="date"
+            class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary [&.ng-invalid.ng-touched]:!border-error"
+            [(ngModel)]="dateOfBirth"
+            required
+            #dobCtrl="ngModel"
+          />
+        </label>
+      </div>
+
+      <label class="flex flex-col gap-1.5">
+        <span class="text-body-strong text-sm font-medium">Blood Type <span class="text-muted text-xs">(optional)</span></span>
+        <select
+          name="bloodType"
+          class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary"
+          [(ngModel)]="bloodType"
+        >
+          <option value="" class="text-muted">None</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+      </label>
+
+      <button
+        type="submit"
+        class="bg-primary text-on-primary rounded-lg px-5 py-3 h-10 text-sm font-semibold w-full flex items-center justify-center gap-2 transition-colors hover:bg-primary-active disabled:bg-primary-disabled disabled:text-muted disabled:cursor-not-allowed"
+        [disabled]="form.invalid || isLoading()"
+      >
+        @if (isLoading()) {
+          <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+          Creating account…
+        } @else {
+          Get Started
+        }
+      </button>
+    </form>
+  </div>
+</div>

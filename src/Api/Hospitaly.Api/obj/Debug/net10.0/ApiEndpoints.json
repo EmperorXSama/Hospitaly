@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "Hospitaly.Modules.Users.Presentation.UserController",
+    "Method": "Register",
+    "RelativePath": "users/register",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userModel",
+        "Type": "Hospitaly.Modules.Users.Application.Abstractions.Identity.UserModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

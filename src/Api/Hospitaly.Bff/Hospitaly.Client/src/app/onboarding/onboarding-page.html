@@ -1,0 +1,205 @@
+<div class="fixed inset-0 bg-canvas z-[1000] flex items-center justify-center p-4">
+  <div class="w-full max-w-lg mx-auto">
+
+    @if (step() === 1) {
+      <div class="text-center mb-10">
+        <h1 class="text-[32px] font-bold leading-tight -tracking-[1px] text-on-dark mb-3">Welcome to Hospitaly</h1>
+        <p class="text-body text-base leading-relaxed">Tell us about yourself so we can tailor your experience.</p>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <button
+          class="w-full bg-surface-card border border-hairline rounded-xl p-6 text-left transition-colors hover:border-primary hover:bg-surface-elevated cursor-pointer"
+          (click)="selectRole('doctor')"
+        >
+          <span class="text-title-md text-on-dark block mb-1">I'm a Doctor</span>
+          <span class="text-body text-sm">Manage your practice, patients, and schedule.</span>
+        </button>
+
+        <button
+          class="w-full bg-surface-card border border-hairline rounded-xl p-6 text-left transition-colors hover:border-primary hover:bg-surface-elevated cursor-pointer"
+          (click)="selectRole('clinic')"
+        >
+          <span class="text-title-md text-on-dark block mb-1">I Own a Clinic</span>
+          <span class="text-body text-sm">Register your clinic and manage staff, departments, and operations.</span>
+        </button>
+
+        <button
+          class="w-full bg-surface-card border border-hairline rounded-xl p-6 text-left transition-colors hover:border-primary hover:bg-surface-elevated cursor-pointer"
+          (click)="selectRole('none')"
+        >
+          <span class="text-title-md text-on-dark block mb-1">Just Browsing</span>
+          <span class="text-body text-sm">Skip setup for now. You can configure your profile later.</span>
+        </button>
+      </div>
+    }
+
+    @if (step() === 2) {
+      @if (selectedRole() === 'doctor') {
+        <div>
+          <button
+            class="inline-block text-muted text-sm cursor-pointer mb-6 hover:text-on-dark transition-colors"
+            (click)="back()"
+          >&larr; Back</button>
+
+          <div class="text-center mb-8">
+            <h2 class="text-[28px] font-bold leading-tight -tracking-[1px] text-on-dark mb-2">Doctor Profile</h2>
+            <p class="text-body text-base leading-relaxed">We'll create a basic doctor profile. You can add credentials and specialties later.</p>
+          </div>
+
+          @if (errorMessage(); as msg) {
+            <div class="flex items-center gap-2 bg-error/10 border border-error text-error rounded-lg px-3.5 py-2.5 text-sm mb-5">
+              <span>{{ msg }}</span>
+            </div>
+          }
+
+          <button
+            class="bg-primary text-on-primary rounded-lg px-5 py-3 h-10 text-sm font-semibold w-full flex items-center justify-center gap-2 transition-colors hover:bg-primary-active disabled:bg-primary-disabled disabled:text-muted disabled:cursor-not-allowed cursor-pointer"
+            (click)="submitDoctor()"
+            [disabled]="isLoading()"
+          >
+            @if (isLoading()) {
+              <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+              Creating Profile…
+            } @else {
+              Create Profile
+            }
+          </button>
+        </div>
+      }
+
+      @if (selectedRole() === 'clinic') {
+        <div>
+          <button
+            class="inline-block text-muted text-sm cursor-pointer mb-6 hover:text-on-dark transition-colors"
+            (click)="back()"
+          >&larr; Back</button>
+
+          <div class="text-center mb-8">
+            <h2 class="text-[28px] font-bold leading-tight -tracking-[1px] text-on-dark mb-2">Clinic Details</h2>
+            <p class="text-body text-base leading-relaxed">Tell us about your clinic.</p>
+          </div>
+
+          @if (errorMessage(); as msg) {
+            <div class="flex items-center gap-2 bg-error/10 border border-error text-error rounded-lg px-3.5 py-2.5 text-sm mb-5">
+              <span>{{ msg }}</span>
+            </div>
+          }
+
+          <div class="flex flex-col gap-4">
+            <label class="flex flex-col gap-1.5">
+              <span class="text-body-strong text-sm font-medium">Clinic Name <span class="text-error">*</span></span>
+              <input
+                type="text"
+                class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
+                [(ngModel)]="clinicName"
+                required
+              />
+            </label>
+
+            <label class="flex flex-col gap-1.5">
+              <span class="text-body-strong text-sm font-medium">Description</span>
+              <textarea
+                class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 border border-hairline outline-none transition-colors focus:border-primary w-full resize-none"
+                rows="3"
+                [(ngModel)]="clinicDescription"
+              ></textarea>
+            </label>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <label class="flex flex-col gap-1.5 sm:col-span-2">
+                <span class="text-body-strong text-sm font-medium">Street <span class="text-error">*</span></span>
+                <input
+                  type="text"
+                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
+                  [(ngModel)]="clinicStreet"
+                  required
+                />
+              </label>
+              <label class="flex flex-col gap-1.5">
+                <span class="text-body-strong text-sm font-medium">City <span class="text-error">*</span></span>
+                <input
+                  type="text"
+                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
+                  [(ngModel)]="clinicCity"
+                  required
+                />
+              </label>
+              <label class="flex flex-col gap-1.5">
+                <span class="text-body-strong text-sm font-medium">Region</span>
+                <input
+                  type="text"
+                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
+                  [(ngModel)]="clinicRegion"
+                />
+              </label>
+              <label class="flex flex-col gap-1.5">
+                <span class="text-body-strong text-sm font-medium">Postal Code</span>
+                <input
+                  type="text"
+                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
+                  [(ngModel)]="clinicPostalCode"
+                />
+              </label>
+              <label class="flex flex-col gap-1.5">
+                <span class="text-body-strong text-sm font-medium">Country <span class="text-error">*</span></span>
+                <input
+                  type="text"
+                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
+                  [(ngModel)]="clinicCountry"
+                  required
+                />
+              </label>
+              <label class="flex flex-col gap-1.5">
+                <span class="text-body-strong text-sm font-medium">Phone</span>
+                <input
+                  type="tel"
+                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
+                  [(ngModel)]="clinicPhone"
+                />
+              </label>
+              <label class="flex flex-col gap-1.5">
+                <span class="text-body-strong text-sm font-medium">Email</span>
+                <input
+                  type="email"
+                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
+                  [(ngModel)]="clinicEmail"
+                />
+              </label>
+            </div>
+
+            <button
+              class="bg-primary text-on-primary rounded-lg px-5 py-3 h-10 text-sm font-semibold w-full flex items-center justify-center gap-2 transition-colors hover:bg-primary-active disabled:bg-primary-disabled disabled:text-muted disabled:cursor-not-allowed mt-2 cursor-pointer"
+              (click)="submitClinic()"
+              [disabled]="isLoading()"
+            >
+              @if (isLoading()) {
+                <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                Creating Clinic…
+              } @else {
+                Create Clinic
+              }
+            </button>
+          </div>
+        </div>
+      }
+
+      @if (selectedRole() === 'none') {
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-surface-card border border-hairline flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h2 class="text-[28px] font-bold leading-tight -tracking-[1px] text-on-dark mb-2">All Set</h2>
+          <p class="text-body text-base leading-relaxed mb-8">You can set up your profile and clinic details at any time from your account settings.</p>
+
+          <button
+            class="bg-primary text-on-primary rounded-lg px-5 py-3 h-10 text-sm font-semibold transition-colors hover:bg-primary-active cursor-pointer"
+            (click)="submitNone()"
+          >
+            Go to Dashboard
+          </button>
+        </div>
+      }
+    }
+  </div>
+</div>

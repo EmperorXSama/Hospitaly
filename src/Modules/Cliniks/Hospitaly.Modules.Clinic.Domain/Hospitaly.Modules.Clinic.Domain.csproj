@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Appointment\" />
+      <Folder Include="Clinic\Events\" />
+      <Folder Include="DoctorSchedule\" />
+      <Folder Include="Patient\" />
+      <Folder Include="Room\" />
+      <Folder Include="StaffMember\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\Hospitaly.Common.Domain\Hospitaly.Common.Domain.csproj" />
+    </ItemGroup>
+
+
+</Project>

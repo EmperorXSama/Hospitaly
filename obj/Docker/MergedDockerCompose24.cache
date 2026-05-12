@@ -1,0 +1,208 @@
+name: hospitaly
+services:
+  hospitaly-cache:
+    command:
+      - redis-server
+      - --save
+      - "20"
+      - "1"
+      - --loglevel
+      - warning
+      - --requirepass
+      - hospitaly123
+    container_name: Hospitaly.Redis
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - -a
+        - hospitaly123
+        - ping
+      timeout: 5s
+      retries: 3
+    image: redis:alpine
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 6379
+        published: "6379"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: cache
+        target: /data
+        volume: {}
+  hospitaly.api:
+    build:
+      context: C:\Users\khali\RiderProjects\Hospitaly
+      dockerfile: src/Api/Hospitaly.Api/Dockerfile
+    container_name: Hospitaly.Api
+    depends_on:
+      hospitaly-cache:
+        condition: service_started
+        required: true
+      hospitaly.database:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Database: Host=hospitaly.database;Port=5432;Database=hospitaly;Username=postgres;Password=postgres
+      Redis__Connection: redis:6379,password=hospitaly123
+    image: hospitalyapi
+    networks:
+      backend: null
+      frontend: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "5500"
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        published: "5501"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\khali\AppData\Roaming/ASP.NET/Https
+        target: /https
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\khali\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\khali\AppData\Roaming/Microsoft/UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind: {}
+  hospitaly.bff:
+    build:
+      context: C:\Users\khali\RiderProjects\Hospitaly
+      dockerfile: src/Api/Hospitaly.Bff/Dockerfile
+    container_name: Hospitaly.Bff
+    depends_on:
+      hospitaly-cache:
+        condition: service_healthy
+        required: true
+      hospitaly.api:
+        condition: service_started
+        required: true
+      hospitaly.identity:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_Kestrel__Certificates__Default__Password: hospitaly123
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/hospitaly-bff.pfx
+      Api__BaseUrl: http://hospitaly.api:8080
+      OpenIdConnect__Authority: http://localhost:28080/realms/hospitaly
+      OpenIdConnect__ClientId: hospitaly-bff-client
+      OpenIdConnect__ClientSecret: Up7nCXdNqGn9DTmmpQ3EYNZ1hLmA8zs7
+      OpenIdConnect__RequireHttpsMetadata: "false"
+      Redis__Connection: hospitaly-cache:6379,password=hospitaly123
+    image: hospitalybff
+    networks:
+      backend: null
+      frontend: null
+    ports:
+      - mode: ingress
+        target: 8081
+        published: "7214"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        published: "7215"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\khali\AppData\Roaming/ASP.NET/Https
+        target: /https
+        read_only: true
+        bind: {}
+  hospitaly.database:
+    container_name: Hospitaly.Database
+    environment:
+      POSTGRES_DB: hospitaly
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres:latest
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5433"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: hospitaly_db
+        target: /var/lib/postgresql/data
+        volume: {}
+  hospitaly.identity:
+    command:
+      - start-dev
+    container_name: Hospitaly.Identity
+    environment:
+      KC_HEALTH_ENABLED: "true"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    image: quay.io/keycloak/keycloak:latest
+    networks:
+      backend: null
+      frontend: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "28080"
+        protocol: tcp
+      - mode: ingress
+        target: 9000
+        published: "29000"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\khali\RiderProjects\Hospitaly\.containers\identity
+        target: /opt/keycloak/data
+        bind: {}
+      - type: bind
+        source: C:\Users\khali\RiderProjects\Hospitaly\themes\hospitaly
+        target: /opt/keycloak/themes/hospitaly
+        bind: {}
+  redis-insight:
+    container_name: Hospitaly.RedisInsight
+    depends_on:
+      hospitaly-cache:
+        condition: service_started
+        required: true
+    image: redis/redisinsight:latest
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 5540
+        published: "5540"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: redis-insight
+        target: /data
+        volume: {}
+networks:
+  backend:
+    name: hospitaly_backend
+    driver: bridge
+  frontend:
+    name: hospitaly_frontend
+    driver: bridge
+volumes:
+  cache:
+    name: hospitaly_cache
+  hospitaly_db:
+    name: hospitaly_hospitaly_db
+  redis-insight:
+    name: hospitaly_redis-insight

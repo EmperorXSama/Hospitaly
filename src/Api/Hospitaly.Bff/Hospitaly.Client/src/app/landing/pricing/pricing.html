@@ -1,0 +1,64 @@
+<section class="relative py-24 px-4 overflow-hidden">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-ink">
+      Simple, Transparent <span class="text-primary">Pricing</span>
+    </h2>
+    <p class="text-body text-center max-w-xl mx-auto mb-10">
+      Choose the plan that fits your practice. No hidden fees, no surprises.
+    </p>
+
+    <div class="flex items-center justify-center gap-4 mb-12">
+      <span class="text-sm font-medium" [class.text-ink]="!isAnnual()" [class.text-muted]="isAnnual()">Monthly</span>
+      <button class="toggle-track" (click)="toggleBilling()" type="button" [class.annual]="isAnnual()">
+        <div #toggleKnob class="toggle-knob"></div>
+      </button>
+      <span class="text-sm font-medium" [class.text-ink]="isAnnual()" [class.text-muted]="!isAnnual()">Annual</span>
+      <span class="text-xs text-primary font-semibold ml-1">Save 20%</span>
+    </div>
+
+    <div class="pricing-grid">
+      @for (tier of tiers; track tier.name) {
+        <div
+          #pricingCard
+          class="pricing-card"
+          [class.highlighted]="tier.highlighted"
+        >
+          @if (tier.badge) {
+            <div class="badge">{{ tier.badge }}</div>
+          }
+
+          <h3 class="text-xl font-bold text-ink mb-1">{{ tier.name }}</h3>
+          <p class="text-sm text-body mb-6">{{ tier.description }}</p>
+
+          <div class="price mb-6">
+            @if (tier.custom) {
+              <span class="text-3xl font-bold text-ink">Custom</span>
+            } @else {
+              <span class="text-4xl font-bold text-ink">
+                {{ isAnnual() ? '$' + tier.annualPrice : '$' + tier.monthlyPrice }}
+              </span>
+              <span class="text-muted text-sm ml-1">{{ isAnnual() ? '/yr' : '/mo' }}</span>
+            }
+          </div>
+
+          <ul class="feature-list mb-8">
+            @for (feature of tier.features; track feature.label) {
+              <li class="feature-item" [class.included]="feature.included" [class.excluded]="!feature.included">
+                <span class="feature-icon">@if (feature.included) {&#10003;} @else {&#10007;}</span>
+                <span>{{ feature.label }}</span>
+              </li>
+            }
+          </ul>
+
+          <button
+            class="cta-btn"
+            [class.primary]="tier.highlighted"
+            [class.secondary]="!tier.highlighted"
+          >
+            {{ tier.cta }}
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</section>

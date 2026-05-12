@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "9bw86Pez57Q=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\tests\\DomainScenarios\\Hospitaly.DomainScenarios.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\khali\\.nuget\\packages\\erroror\\2.1.1-rc.3\\erroror.2.1.1-rc.3.nupkg.sha512",
+    "C:\\Users\\khali\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

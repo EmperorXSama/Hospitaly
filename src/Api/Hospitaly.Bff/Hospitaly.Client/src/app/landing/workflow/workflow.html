@@ -1,0 +1,30 @@
+<section class="relative py-24 px-4 overflow-hidden">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-ink">
+      Get Started in <span class="text-primary">3 Simple Steps</span>
+    </h2>
+    <p class="text-body text-center max-w-xl mx-auto mb-16">
+      From registration to full-scale operations, we make every step seamless.
+    </p>
+
+    <div class="workflow-wrapper relative">
+      <div #connectLine class="connecting-line"></div>
+
+      <div class="workflow-steps">
+        @for (step of steps; track step.number) {
+          <div class="workflow-step">
+            <div class="step-circle-wrapper">
+              <div #stepCircle class="step-circle">
+                <span>{{ step.number }}</span>
+              </div>
+            </div>
+            <div #stepCard class="step-card surface-card">
+              <h3 class="text-lg font-semibold text-ink mb-2">{{ step.title }}</h3>
+              <p class="text-body text-sm leading-relaxed">{{ step.description }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

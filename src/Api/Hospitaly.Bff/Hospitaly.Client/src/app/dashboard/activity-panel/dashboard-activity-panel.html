@@ -1,0 +1,90 @@
+<aside class="w-80 h-full flex flex-col bg-canvas border-l border-hairline">
+  <div class="overflow-y-auto flex-1 px-5 py-6 space-y-6">
+    <!-- Profile Card -->
+    <div class="bg-surface-card border border-hairline rounded-xl p-6 text-center">
+      <div class="w-16 h-16 rounded-full bg-surface-elevated flex items-center justify-center mx-auto border-2 border-primary/30">
+        <span class="text-title-md text-primary font-bold">{{ initials }}</span>
+      </div>
+      <h3 class="text-title-md text-on-dark mt-4">{{ profile()?.userName ?? 'User' }}</h3>
+      <span class="text-body-sm text-muted block mt-0.5">{{ role }}</span>
+
+      <div class="flex items-center justify-center gap-2 mt-4">
+        <button class="w-9 h-9 rounded-full bg-surface-card border border-hairline flex items-center justify-center text-muted hover:text-on-dark hover:border-hairline-strong transition-colors cursor-pointer" title="Call">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </button>
+        <button class="w-9 h-9 rounded-full bg-surface-card border border-hairline flex items-center justify-center text-muted hover:text-on-dark hover:border-hairline-strong transition-colors cursor-pointer" title="Video">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"/>
+            <rect x="1" y="5" width="15" height="14" rx="2"/>
+          </svg>
+        </button>
+        <button class="w-9 h-9 rounded-full bg-surface-card border border-hairline flex items-center justify-center text-muted hover:text-on-dark hover:border-hairline-strong transition-colors cursor-pointer" title="More">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="5" r="2"/>
+            <circle cx="12" cy="12" r="2"/>
+            <circle cx="12" cy="19" r="2"/>
+          </svg>
+        </button>
+      </div>
+
+      <a
+        routerLink="/profile"
+        class="inline-block mt-5 w-full bg-primary text-on-primary rounded-lg px-5 py-2.5 text-sm font-semibold text-center transition-colors hover:bg-primary-active"
+      >View Profile</a>
+    </div>
+
+    <!-- Activity Feed -->
+    <div>
+      <h3 class="text-title-sm text-on-dark mb-4 flex items-center gap-2">
+        <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Recent Activity
+      </h3>
+      <div #activityFeed class="space-y-1">
+        @for (activity of activities; track activity.title) {
+          <app-dashboard-activity-item
+            [icon]="activity.icon"
+            [title]="activity.title"
+            [time]="activity.time"
+            [description]="activity.description"
+          />
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Note Input -->
+  <div class="flex-shrink-0 px-5 py-4 border-t border-hairline">
+    <div class="flex items-center gap-2 bg-surface-elevated rounded-lg px-3.5 py-2.5 border border-hairline focus-within:border-primary transition-colors">
+      <input
+        type="text"
+        placeholder="Write a note..."
+        class="flex-1 bg-transparent text-on-dark text-sm outline-none placeholder:text-muted-soft"
+      />
+      <button class="flex-shrink-0 w-7 h-7 flex items-center justify-center text-muted hover:text-on-dark transition-colors cursor-pointer" title="Attach file">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+        </svg>
+      </button>
+      <button class="flex-shrink-0 w-7 h-7 flex items-center justify-center text-muted hover:text-on-dark transition-colors cursor-pointer" title="Emoji">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+          <line x1="9" y1="9" x2="9.01" y2="9"/>
+          <line x1="15" y1="9" x2="15.01" y2="9"/>
+        </svg>
+      </button>
+      <button class="flex-shrink-0 w-7 h-7 flex items-center justify-center text-muted hover:text-on-dark transition-colors cursor-pointer" title="Voice">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+          <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</aside>

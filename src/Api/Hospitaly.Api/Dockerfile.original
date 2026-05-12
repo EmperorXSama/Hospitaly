@@ -1,0 +1,35 @@
+﻿FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Hospitaly.Api/Hospitaly.Api.csproj", "Hospitaly.Api/"]
+COPY ["Hospitaly.Modules.Clinic.Infrastructure/Hospitaly.Modules.Clinic.Infrastructure.csproj", "Hospitaly.Modules.Clinic.Infrastructure/"]
+COPY ["Hospitaly.Modules.Clinic.Application/Hospitaly.Modules.Clinic.Application.csproj", "Hospitaly.Modules.Clinic.Application/"]
+COPY ["Hospitaly.Modules.Clinic.Domain/Hospitaly.Modules.Clinic.Domain.csproj", "Hospitaly.Modules.Clinic.Domain/"]
+COPY ["Hospitaly.Common.Domain/Hospitaly.Common.Domain.csproj", "Hospitaly.Common.Domain/"]
+COPY ["Hospitaly.Common.Application/Hospitaly.Common.Application.csproj", "Hospitaly.Common.Application/"]
+COPY ["Hospitaly.Modules.Clinic.Presentation/Hospitaly.Modules.Clinic.Presentation.csproj", "Hospitaly.Modules.Clinic.Presentation/"]
+COPY ["Hospitaly.Modules.Users.Infrastructure/Hospitaly.Modules.Users.Infrastructure.csproj", "Hospitaly.Modules.Users.Infrastructure/"]
+COPY ["Hospitaly.Common.Infrastructure/Hospitaly.Common.Infrastructure.csproj", "Hospitaly.Common.Infrastructure/"]
+COPY ["Hospitaly.Modules.Users.Application/Hospitaly.Modules.Users.Application.csproj", "Hospitaly.Modules.Users.Application/"]
+COPY ["Hospitaly.Modules.Users.Domain/Hospitaly.Modules.Users.Domain.csproj", "Hospitaly.Modules.Users.Domain/"]
+COPY ["Hospitaly.Modules.Users.Presentation/Hospitaly.Modules.Users.Presentation.csproj", "Hospitaly.Modules.Users.Presentation/"]
+COPY ["Hospitaly.Common.Presentation/Hospitaly.Common.Presentation.csproj", "Hospitaly.Common.Presentation/"]
+RUN dotnet restore "Hospitaly.Api/Hospitaly.Api.csproj"
+COPY . .
+WORKDIR "/src/Hospitaly.Api"
+RUN dotnet build "./Hospitaly.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./Hospitaly.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Hospitaly.Api.dll"]

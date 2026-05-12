@@ -1,0 +1,73 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Hospitaly.Modules.Users.Domain/1.0.0": {
+        "dependencies": {
+          "Hospitaly.Common.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Hospitaly.Modules.Users.Domain.dll": {}
+        }
+      },
+      "ErrorOr/2.1.1-rc.3": {
+        "runtime": {
+          "lib/net8.0/ErrorOr.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.0"
+          }
+        }
+      },
+      "MediatR.Contracts/2.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "assemblyVersion": "2.0.1.0",
+            "fileVersion": "2.0.1.0"
+          }
+        }
+      },
+      "Hospitaly.Common.Domain/1.0.0": {
+        "dependencies": {
+          "ErrorOr": "2.1.1-rc.3",
+          "MediatR.Contracts": "2.0.1"
+        },
+        "runtime": {
+          "Hospitaly.Common.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Hospitaly.Modules.Users.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ErrorOr/2.1.1-rc.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eLWAxKniBkb//+575WfpJeskSCqxSG4kY9kF8+GBJSkoYanaBDDpNWReJL0xWnk6Q1T+AYS8RvAoofo2SnW14w==",
+      "path": "erroror/2.1.1-rc.3",
+      "hashPath": "erroror.2.1.1-rc.3.nupkg.sha512"
+    },
+    "MediatR.Contracts/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ==",
+      "path": "mediatr.contracts/2.0.1",
+      "hashPath": "mediatr.contracts.2.0.1.nupkg.sha512"
+    },
+    "Hospitaly.Common.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,93 @@
+<section id="analytics-section" class="relative py-24 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-ink mb-4">
+        Real-Time <span class="text-primary">Analytics Dashboard</span>
+      </h2>
+      <p class="text-body text-lg max-w-2xl mx-auto">
+        Monitor your clinic's performance with real-time data and actionable insights.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      @for (counter of counters; track counter.label) {
+        <div class="counter-card surface-card p-6 text-center">
+          <div class="text-3xl mb-2 leading-none">{{ counter.icon }}</div>
+          <div class="text-3xl sm:text-4xl font-bold text-primary mb-1">
+            <span #counterEl>{{ counter.prefix }}0{{ counter.suffix }}</span>
+          </div>
+          <div class="text-muted text-sm">{{ counter.label }}</div>
+        </div>
+      }
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+      <div class="surface-card p-6">
+        <h3 class="text-lg font-semibold text-ink mb-6">Weekly Appointments</h3>
+        <div class="flex items-end justify-between gap-3" style="height: 12rem;">
+          @for (bar of weeklyAppointments; track bar.label; let i = $index) {
+            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+              <span class="text-xs text-muted">{{ bar.value }}</span>
+              <div #barEl class="bar-wrapper w-full rounded-t-lg overflow-hidden" style="height: 100%; display: flex; align-items: flex-end;">
+                <div
+                  class="bar-fill w-full rounded-t-lg"
+                  style="background: #faff69;"
+                  [style.height.%]="getBarHeightPercent(bar.value, 95)"
+                ></div>
+              </div>
+              <span class="text-xs text-muted">{{ bar.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="surface-card p-6">
+        <h3 class="text-lg font-semibold text-ink mb-6">Patient Growth (6 Months)</h3>
+        <div class="flex items-end justify-between gap-3" style="height: 12rem;">
+          @for (bar of patientGrowth; track bar.label; let i = $index) {
+            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+              <span class="text-xs text-muted">{{ bar.value }}</span>
+              <div #barEl class="bar-wrapper w-full rounded-t-lg overflow-hidden" style="height: 100%; display: flex; align-items: flex-end;">
+                <div
+                  class="bar-fill w-full rounded-t-lg"
+                  style="background: #faff69;"
+                  [style.height.%]="getBarHeightPercent(bar.value, 1100)"
+                ></div>
+              </div>
+              <span class="text-xs text-muted">{{ bar.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-semibold text-ink mb-6">Top Performing Doctors</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (doctor of doctors; track doctor.name) {
+          <div #doctorCard class="doctor-card surface-card p-6 opacity-0 cursor-default">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center text-sm font-bold">
+                {{ getInitials(doctor.name) }}
+              </div>
+              <div class="min-w-0">
+                <h4 class="text-sm font-semibold text-ink truncate">{{ doctor.name }}</h4>
+                <p class="text-xs text-muted">{{ doctor.specialty }}</p>
+              </div>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="text-2xl font-bold text-ink">{{ doctor.patients }}</p>
+                <p class="text-xs text-muted">Patients</p>
+              </div>
+              <div class="text-right">
+                <p class="text-lg font-semibold text-primary">{{ doctor.rating }}</p>
+                <p class="text-xs text-muted">Rating</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

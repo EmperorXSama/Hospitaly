@@ -1,0 +1,126 @@
+services:
+  hospitaly.bff:
+    image: ${DOCKER_REGISTRY-}hospitalybff
+    container_name: Hospitaly.Bff
+    build:
+      context: .
+      dockerfile: src/Api/Hospitaly.Bff/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/hospitaly-bff.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=hospitaly123
+      - Redis__Connection=hospitaly-cache:6379,password=hospitaly123
+      - OpenIdConnect__Authority=http://localhost:28080/realms/hospitaly
+      - OpenIdConnect__ClientId=hospitaly-bff-client
+      - OpenIdConnect__ClientSecret=Up7nCXdNqGn9DTmmpQ3EYNZ1hLmA8zs7
+      - OpenIdConnect__RequireHttpsMetadata=false
+      - Api__BaseUrl=http://hospitaly.api:8080
+    ports:
+      - 7214:8081   # HTTPS port exposed to host
+      - 7215:8080   # HTTP port (optional, handy for debugging)
+    depends_on:
+      hospitaly.api:
+        condition: service_started
+      hospitaly.identity:
+        condition: service_started
+      hospitaly-cache:
+        condition: service_healthy  
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/https:ro
+    networks:
+      - backend
+      - frontend
+  hospitaly.api:
+    image: ${DOCKER_REGISTRY-}hospitalyapi
+    container_name: Hospitaly.Api
+    build:
+      context: .
+      dockerfile: src/Api/Hospitaly.Api/Dockerfile
+    environment:
+      - Redis__Connection=redis:6379,password=hospitaly123
+      - ConnectionStrings__Database=Host=hospitaly.database;Port=5432;Database=hospitaly;Username=postgres;Password=postgres
+    ports:
+      - "5500:8080"
+      - "5501:8081"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/https:ro
+    depends_on:
+      - hospitaly.database
+      - hospitaly-cache
+    networks:
+      - backend
+      - frontend
+
+  hospitaly.database:
+    image: postgres:latest
+    container_name: Hospitaly.Database
+    environment:
+      - POSTGRES_DB=hospitaly
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - hospitaly_db:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    networks:
+      - backend
+
+  hospitaly.identity:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: Hospitaly.Identity
+    command: start-dev
+    environment:
+      - KC_HEALTH_ENABLED=true
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    volumes:
+      - ./.containers/identity:/opt/keycloak/data
+      - ./themes/hospitaly:/opt/keycloak/themes/hospitaly
+    ports:
+      - "28080:8080"
+      - "29000:9000"
+    networks:
+      - backend
+      - frontend
+
+  # 🔴 Redis
+  hospitaly-cache:
+    image: redis:alpine
+    container_name: Hospitaly.Redis
+    restart: unless-stopped
+    command: redis-server --save 20 1 --loglevel warning --requirepass hospitaly123
+    ports:
+      - "6379:6379"
+    volumes:
+      - cache:/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "hospitaly123", "ping"]
+      retries: 3
+      timeout: 5s
+
+  # 🧠 RedisInsight UI
+  redis-insight:
+    image: redis/redisinsight:latest
+    container_name: Hospitaly.RedisInsight
+    restart: unless-stopped
+    ports:
+      - "5540:5540"
+    volumes:
+      - redis-insight:/data
+    depends_on:
+      - hospitaly-cache
+    networks:
+      - backend
+
+volumes:
+  hospitaly_db:
+  cache:
+  redis-insight:
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge

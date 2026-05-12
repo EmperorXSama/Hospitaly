@@ -1,0 +1,62 @@
+<section class="relative py-24 px-4 overflow-hidden">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-ink">
+      What <span class="text-primary">Healthcare Professionals</span> Say
+    </h2>
+    <p class="text-body text-center max-w-xl mx-auto mb-16">
+      Join thousands of satisfied practitioners who trust Hospitaly.
+    </p>
+
+    <div
+      class="testimonial-carousel"
+      (mouseenter)="pauseAutoRotate()"
+      (mouseleave)="resumeAutoRotate()"
+    >
+      <div class="cards-container relative">
+        @for (t of testimonials; track t.name) {
+          <div #testimonialCard class="testimonial-card surface-card" [class.active]="t === testimonials[activeSlide()]">
+            <div class="flex items-center gap-4 mb-5">
+              <div class="avatar" [attr.data-initials]="t.initials">{{ t.initials }}</div>
+              <div>
+                <h4 class="font-semibold text-ink">{{ t.name }}</h4>
+                <p class="text-sm text-muted">{{ t.clinic }}</p>
+              </div>
+            </div>
+
+            <div class="stars mb-4">
+              @for (star of [1,2,3,4,5]; track star) {
+                <span class="star" [class.filled]="star <= t.rating">&#9733;</span>
+              }
+            </div>
+
+            <p class="text-body leading-relaxed text-lg">
+              &ldquo;{{ t.quote }}&rdquo;
+            </p>
+          </div>
+        }
+      </div>
+
+      <div class="flex items-center justify-center gap-2 mt-8">
+        @for (t of testimonials; track t.name; let i = $index) {
+          <button
+            class="dot"
+            [class.active]="i === activeSlide()"
+            (click)="goToSlide(i)"
+            [attr.aria-label]="'Go to testimonial ' + (i + 1)"
+          ></button>
+        }
+      </div>
+
+      <button class="nav-btn nav-prev" (click)="prevSlide()" aria-label="Previous testimonial">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="nav-btn nav-next" (click)="nextSlide()" aria-label="Next testimonial">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>

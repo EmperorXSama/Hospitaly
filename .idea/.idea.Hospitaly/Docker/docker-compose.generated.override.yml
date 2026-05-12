@@ -1,0 +1,38 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  hospitaly.api:
+    build:
+      context: "C:\\Users\\khali\\RiderProjects\\Hospitaly"
+      dockerfile: "src/Api/Hospitaly.Api/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net10.0/Hospitaly.Api.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "hospitalyapi:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api:/app:rw"
+    - "C:\\Users\\khali\\RiderProjects\\Hospitaly:/src:rw"
+    - "C:\\Users\\khali\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
+  hospitaly.bff:
+    build:
+      context: "C:\\Users\\khali\\RiderProjects\\Hospitaly"
+      dockerfile: "src/Api/Hospitaly.Bff/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net10.0/Hospitaly.Bff.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "hospitalybff:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Bff:/app:rw"
+    - "C:\\Users\\khali\\RiderProjects\\Hospitaly:/src:rw"
+    - "C:\\Users\\khali\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"

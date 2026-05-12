@@ -1,0 +1,128 @@
+name: hospitaly
+services:
+  hospitaly.api:
+    build:
+      context: C:\Users\khali\RiderProjects\Hospitaly
+      dockerfile: src/Api/Hospitaly.Api/Dockerfile
+    container_name: Hospitaly.Api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: SuperPassword
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/dev-cert.pfx
+      ASPNETCORE_URLS: https://+:8081;http://+:8080
+    image: hospitalyapi
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "5000"
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        published: "5001"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\khali\AppData\Roaming/ASP.NET/Https
+        target: /https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\khali\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\khali\AppData\Roaming/Microsoft/UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\khali\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\khali\AppData\Roaming/ASP.NET/Https
+        target: /root/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+  hospitaly.database:
+    container_name: Hospitaly.Database
+    environment:
+      POSTGRES_DB: hospitaly
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: hospitaly_db
+        target: /var/lib/postgresql/data
+        volume: {}
+  hospitaly.keycloak:
+    command:
+      - start-dev
+      - --http-port
+      - "7080"
+      - --https-port
+      - "7443"
+    container_name: Hospitaly.Keycloak
+    environment:
+      KC_HEALTH_ENABLED: "true"
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: "7080"
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+      KC_LOG_LEVEL: info
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://localhost:7080/health/ready
+      timeout: 2s
+      interval: 15s
+      retries: 5
+    image: quay.io/keycloak/keycloak:24.0
+    networks:
+      local_network: null
+    ports:
+      - mode: ingress
+        target: 7080
+        published: "7080"
+        protocol: tcp
+      - mode: ingress
+        target: 7443
+        published: "7443"
+        protocol: tcp
+networks:
+  default:
+    name: hospitaly_default
+  local_network:
+    name: hospitaly_local_network
+    driver: bridge
+volumes:
+  hospitaly_db:
+    name: hospitaly_hospitaly_db

@@ -1,0 +1,7 @@
+.feature-card {
+  transition: background-color 0.2s ease;
+}
+
+.feature-card:hover {
+  background-color: #242424;
+}

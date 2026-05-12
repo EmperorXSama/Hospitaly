@@ -1,0 +1,6 @@
+@Hospitaly.Bff_HostAddress = http://localhost:5020
+
+GET {{Hospitaly.Bff_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

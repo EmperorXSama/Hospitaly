@@ -1,0 +1,10 @@
+{
+  "User": {
+    "Keycloak":{
+      "AdminUrl": "",
+      "TokenUrl": "",
+      "ConfidentialClientId": "",
+      "ConfidentialClientSecret": ""
+    }
+  }
+}

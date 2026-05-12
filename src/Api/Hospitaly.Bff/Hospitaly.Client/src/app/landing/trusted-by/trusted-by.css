@@ -1,0 +1,36 @@
+.marquee-container {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #888888;
+  cursor: default;
+  transition: all 0.2s ease;
+}
+
+.badge-pill:hover {
+  border-color: #faff69;
+  color: #ffffff;
+}

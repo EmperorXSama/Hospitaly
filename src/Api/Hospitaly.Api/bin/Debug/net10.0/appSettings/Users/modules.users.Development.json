@@ -1,0 +1,10 @@
+{
+  "User": {
+    "Keycloak": {
+      "AdminUrl": "http://Hospitaly.Identity:8080/admin/realms/hospitaly/",
+      "TokenUrl": "http://Hospitaly.Identity:8080/realms/hospitaly/protocol/openid-connect/token",
+      "ConfidentialClientId": "hospitaly-confidential-api",
+      "ConfidentialClientSecret": "KkI4EZ1z8R7qIy674BVikktR7P3807Om"
+    }
+  }
+}

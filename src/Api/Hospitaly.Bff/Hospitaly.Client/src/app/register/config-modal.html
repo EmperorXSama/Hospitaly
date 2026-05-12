@@ -1,0 +1,26 @@
+<div class="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000] p-4" (click)="close.emit()">
+  <div class="w-full max-w-sm bg-surface-elevated border border-hairline-strong rounded-xl overflow-hidden" (click)="$event.stopPropagation()">
+    <div class="text-center pt-8 px-8 pb-0">
+      <div class="w-12 h-12 rounded-full bg-accent-emerald text-on-primary flex items-center justify-center text-2xl mx-auto mb-4">&#10003;</div>
+      <h2 class="text-2xl font-bold text-on-dark mb-2">Account Created</h2>
+      <p class="text-body text-base leading-relaxed m-0">Your account is ready. Next, let's set up your profile.</p>
+    </div>
+
+    <div class="p-6 px-8">
+      <div class="flex flex-col gap-1 bg-surface-card border border-hairline rounded-lg p-3 px-4 mb-3">
+        <span class="text-muted text-xs font-semibold tracking-widest uppercase">User ID</span>
+        <span class="font-mono text-sm text-primary break-all">{{ userId() }}</span>
+      </div>
+      <p class="text-muted text-xs m-0">This is your unique identifier. You'll need it for support and configuration.</p>
+    </div>
+
+    <div class="px-8 pb-8">
+      <button
+        class="bg-primary text-on-primary rounded-lg px-5 py-3 h-10 text-sm font-semibold w-full flex items-center justify-center gap-2 transition-colors hover:bg-primary-active"
+        (click)="close.emit()"
+      >
+        Continue to Profile Setup
+      </button>
+    </div>
+  </div>
+</div>

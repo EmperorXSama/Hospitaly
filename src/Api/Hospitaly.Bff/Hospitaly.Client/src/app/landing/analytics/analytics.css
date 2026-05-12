@@ -1,0 +1,16 @@
+.bar-fill {
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+
+.bar-wrapper {
+  min-height: 0;
+}
+
+.counter-card {
+  cursor: default;
+}
+
+.doctor-card {
+  cursor: default;
+}

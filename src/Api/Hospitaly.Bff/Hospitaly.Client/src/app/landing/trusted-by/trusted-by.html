@@ -1,0 +1,35 @@
+<section class="relative py-24 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center text-ink mb-16">
+      Trusted by <span class="text-primary">500+ Healthcare Providers</span>
+    </h2>
+
+    <div class="marquee-container overflow-hidden mb-12">
+      <div class="marquee-track flex will-change-transform">
+        <div class="flex gap-16 items-center flex-shrink-0 px-8">
+          @for (clinic of clinics; track clinic) {
+            <div class="text-muted text-lg font-semibold whitespace-nowrap opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-default">
+              {{ clinic }}
+            </div>
+          }
+        </div>
+        <div class="flex gap-16 items-center flex-shrink-0 px-8">
+          @for (clinic of clinics; track clinic) {
+            <div class="text-muted text-lg font-semibold whitespace-nowrap opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-default">
+              {{ clinic }}
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-4">
+      @for (badge of badges; track badge.label) {
+        <div class="badge-pill">
+          <span>{{ badge.icon }}</span>
+          <span>{{ badge.label }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>

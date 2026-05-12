@@ -1,0 +1,359 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\api\\hospitaly.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|solutionrelative:src\\api\\hospitaly.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|c:\\users\\khali\\riderprojects\\hospitaly\\docker-compose.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}",
+      "RelativeMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|solutionrelative:docker-compose.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB45C444-535E-513A-BEC9-C45A3D82D334}|src\\Modules\\Users\\Hospitaly.Modules.Users.Presentation\\Hospitaly.Modules.Users.Presentation.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\modules\\users\\hospitaly.modules.users.presentation\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB45C444-535E-513A-BEC9-C45A3D82D334}|src\\Modules\\Users\\Hospitaly.Modules.Users.Presentation\\Hospitaly.Modules.Users.Presentation.csproj|solutionrelative:src\\modules\\users\\hospitaly.modules.users.presentation\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{557E8C90-86ED-2F55-D9DE-6EB03D5FA0DC}|src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Hospitaly.Modules.Users.Application.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\modules\\users\\hospitaly.modules.users.application\\users\\queries\\getuserinfo\\getuserinfoqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{557E8C90-86ED-2F55-D9DE-6EB03D5FA0DC}|src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Hospitaly.Modules.Users.Application.csproj|solutionrelative:src\\modules\\users\\hospitaly.modules.users.application\\users\\queries\\getuserinfo\\getuserinfoqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\common\\hospitaly.common.infrastructure\\authentication\\claimprincipalextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|solutionrelative:src\\common\\hospitaly.common.infrastructure\\authentication\\claimprincipalextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\common\\hospitaly.common.infrastructure\\authorization\\permissionauthorizationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|solutionrelative:src\\common\\hospitaly.common.infrastructure\\authorization\\permissionauthorizationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\common\\hospitaly.common.infrastructure\\authorization\\permissionauthorizationpolicyprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|solutionrelative:src\\common\\hospitaly.common.infrastructure\\authorization\\permissionauthorizationpolicyprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\common\\hospitaly.common.infrastructure\\authorization\\customclaimstransformation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|solutionrelative:src\\common\\hospitaly.common.infrastructure\\authorization\\customclaimstransformation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{557E8C90-86ED-2F55-D9DE-6EB03D5FA0DC}|src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Hospitaly.Modules.Users.Application.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\modules\\users\\hospitaly.modules.users.application\\users\\queries\\getuserpermission\\getuserpermissionqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{557E8C90-86ED-2F55-D9DE-6EB03D5FA0DC}|src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Hospitaly.Modules.Users.Application.csproj|solutionrelative:src\\modules\\users\\hospitaly.modules.users.application\\users\\queries\\getuserpermission\\getuserpermissionqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\common\\hospitaly.common.infrastructure\\authentication\\authenticationextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|solutionrelative:src\\common\\hospitaly.common.infrastructure\\authentication\\authenticationextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\api\\hospitaly.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|solutionrelative:src\\api\\hospitaly.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\api\\hospitaly.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|solutionrelative:src\\api\\hospitaly.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\common\\hospitaly.common.infrastructure\\authorization\\authorizationextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7655D27A-B50A-739E-466D-65A0D1A4A305}|src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj|solutionrelative:src\\common\\hospitaly.common.infrastructure\\authorization\\authorizationextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B014A5B-F2EF-D4DF-E07B-788D0F6B24F1}|src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\Hospitaly.Modules.Users.Infrastructure.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\modules\\users\\hospitaly.modules.users.infrastructure\\usersmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B014A5B-F2EF-D4DF-E07B-788D0F6B24F1}|src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\Hospitaly.Modules.Users.Infrastructure.csproj|solutionrelative:src\\modules\\users\\hospitaly.modules.users.infrastructure\\usersmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\18\\Insiders\\MSBuild\\Sdks\\Microsoft.Docker.Sdk\\build\\Microsoft.VisualStudio.Docker.Compose.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\api\\hospitaly.api\\appsettings\\users\\modules.users.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|solutionrelative:src\\api\\hospitaly.api\\appsettings\\users\\modules.users.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B014A5B-F2EF-D4DF-E07B-788D0F6B24F1}|src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\Hospitaly.Modules.Users.Infrastructure.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\modules\\users\\hospitaly.modules.users.infrastructure\\identity\\keycloakauthdelegatinghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B014A5B-F2EF-D4DF-E07B-788D0F6B24F1}|src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\Hospitaly.Modules.Users.Infrastructure.csproj|solutionrelative:src\\modules\\users\\hospitaly.modules.users.infrastructure\\identity\\keycloakauthdelegatinghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|c:\\users\\khali\\riderprojects\\hospitaly\\docker-compose.override.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}",
+      "RelativeMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|solutionrelative:docker-compose.override.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|c:\\users\\khali\\riderprojects\\hospitaly\\docker-compose.dcproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|solutionrelative:docker-compose.dcproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|c:\\users\\khali\\riderprojects\\hospitaly\\src\\api\\hospitaly.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{9C0E30B2-0498-884E-E622-EBE796A90F9B}|src\\Api\\Hospitaly.Api\\Hospitaly.Api.csproj|solutionrelative:src\\api\\hospitaly.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GetUserPermissionQueryHandler.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Users\\Queries\\GetUserPermission\\GetUserPermissionQueryHandler.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Users\\Queries\\GetUserPermission\\GetUserPermissionQueryHandler.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Users\\Queries\\GetUserPermission\\GetUserPermissionQueryHandler.cs",
+              "RelativeToolTip": "src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Users\\Queries\\GetUserPermission\\GetUserPermissionQueryHandler.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABoAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T09:19:53.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PermissionAuthorizationHandler.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\PermissionAuthorizationHandler.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\PermissionAuthorizationHandler.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\PermissionAuthorizationHandler.cs",
+              "RelativeToolTip": "src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\PermissionAuthorizationHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T09:04:06.795Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ClaimPrincipalExtentions.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authentication\\ClaimPrincipalExtentions.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Hospitaly.Common.Infrastructure\\Authentication\\ClaimPrincipalExtentions.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authentication\\ClaimPrincipalExtentions.cs",
+              "RelativeToolTip": "src\\Common\\Hospitaly.Common.Infrastructure\\Authentication\\ClaimPrincipalExtentions.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAYwBYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T08:52:34.572Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GetUserInfoQueryHandler.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Users\\Queries\\GetUserInfo\\GetUserInfoQueryHandler.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Users\\Queries\\GetUserInfo\\GetUserInfoQueryHandler.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Users\\Queries\\GetUserInfo\\GetUserInfoQueryHandler.cs",
+              "RelativeToolTip": "src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Users\\Queries\\GetUserInfo\\GetUserInfoQueryHandler.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAwwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T09:25:57.754Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Presentation\\UserController.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Users\\Hospitaly.Modules.Users.Presentation\\UserController.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Presentation\\UserController.cs",
+              "RelativeToolTip": "src\\Modules\\Users\\Hospitaly.Modules.Users.Presentation\\UserController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwCsAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-05T18:25:43.616Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\Program.cs",
+              "RelativeDocumentMoniker": "src\\Api\\Hospitaly.Api\\Program.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\Program.cs",
+              "RelativeToolTip": "src\\Api\\Hospitaly.Api\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T08:59:36.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "docker-compose.yml",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\docker-compose.yml",
+              "RelativeDocumentMoniker": "docker-compose.yml",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\docker-compose.yml",
+              "RelativeToolTip": "docker-compose.yml",
+              "ViewState": "AgIAABEAAAAAAAAAAAAcwCIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2026-05-05T18:20:24.654Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PermissionAuthorizationPolicyProvider.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\PermissionAuthorizationPolicyProvider.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\PermissionAuthorizationPolicyProvider.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\PermissionAuthorizationPolicyProvider.cs",
+              "RelativeToolTip": "src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\PermissionAuthorizationPolicyProvider.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAewBEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T08:54:58.424Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CustomClaimsTransformation.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\CustomClaimsTransformation.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\CustomClaimsTransformation.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\CustomClaimsTransformation.cs",
+              "RelativeToolTip": "src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\CustomClaimsTransformation.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAewBYAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T08:52:26.388Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AuthenticationExtension.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authentication\\AuthenticationExtension.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Hospitaly.Common.Infrastructure\\Authentication\\AuthenticationExtension.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authentication\\AuthenticationExtension.cs",
+              "RelativeToolTip": "src\\Common\\Hospitaly.Common.Infrastructure\\Authentication\\AuthenticationExtension.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAvwBYAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T09:01:23.584Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "src\\Api\\Hospitaly.Api\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\appsettings.Development.json",
+              "RelativeToolTip": "src\\Api\\Hospitaly.Api\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-05T18:19:48.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "src\\Api\\Hospitaly.Api\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\Properties\\launchSettings.json",
+              "RelativeToolTip": "src\\Api\\Hospitaly.Api\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-06T08:50:30.919Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AuthorizationExtension.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\AuthorizationExtension.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\AuthorizationExtension.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\AuthorizationExtension.cs",
+              "RelativeToolTip": "src\\Common\\Hospitaly.Common.Infrastructure\\Authorization\\AuthorizationExtension.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T08:57:22.95Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UsersModule.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\UsersModule.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\UsersModule.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\UsersModule.cs",
+              "RelativeToolTip": "src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\UsersModule.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAhwB4AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-05T18:30:30.063Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "modules.users.Development.json",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\appSettings\\users\\modules.users.Development.json",
+              "RelativeDocumentMoniker": "src\\Api\\Hospitaly.Api\\appSettings\\users\\modules.users.Development.json",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\appSettings\\users\\modules.users.Development.json",
+              "RelativeToolTip": "src\\Api\\Hospitaly.Api\\appSettings\\users\\modules.users.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-05T18:32:05.233Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "KeycloakAuthDelegatingHandler.cs",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\Identity\\KeycloakAuthDelegatingHandler.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\Identity\\KeycloakAuthDelegatingHandler.cs",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\Identity\\KeycloakAuthDelegatingHandler.cs",
+              "RelativeToolTip": "src\\Modules\\Users\\Hospitaly.Modules.Users.Infrastructure\\Identity\\KeycloakAuthDelegatingHandler.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAawDEAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-05T18:48:55.422Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\Dockerfile",
+              "RelativeDocumentMoniker": "src\\Api\\Hospitaly.Api\\Dockerfile",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Api\\Hospitaly.Api\\Dockerfile",
+              "RelativeToolTip": "src\\Api\\Hospitaly.Api\\Dockerfile",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-05T18:23:25.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAhwG4AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2026-05-05T18:20:57.984Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Microsoft.VisualStudio.Docker.Compose.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\18\\Insiders\\MSBuild\\Sdks\\Microsoft.Docker.Sdk\\build\\Microsoft.VisualStudio.Docker.Compose.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\18\\Insiders\\MSBuild\\Sdks\\Microsoft.Docker.Sdk\\build\\Microsoft.VisualStudio.Docker.Compose.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\18\\Insiders\\MSBuild\\Sdks\\Microsoft.Docker.Sdk\\build\\Microsoft.VisualStudio.Docker.Compose.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\18\\Insiders\\MSBuild\\Sdks\\Microsoft.Docker.Sdk\\build\\Microsoft.VisualStudio.Docker.Compose.targets",
+              "ViewState": "AgIAALoBAAAAAAAAAAAhwM0BAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2026-05-05T18:20:05.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "docker-compose.override.yml",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\docker-compose.override.yml",
+              "RelativeDocumentMoniker": "docker-compose.override.yml",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\docker-compose.override.yml",
+              "RelativeToolTip": "docker-compose.override.yml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2026-05-05T18:38:29.626Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "docker-compose.dcproj",
+              "DocumentMoniker": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\docker-compose.dcproj",
+              "RelativeDocumentMoniker": "docker-compose.dcproj",
+              "ToolTip": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\docker-compose.dcproj",
+              "RelativeToolTip": "docker-compose.dcproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-05T12:03:33.851Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
