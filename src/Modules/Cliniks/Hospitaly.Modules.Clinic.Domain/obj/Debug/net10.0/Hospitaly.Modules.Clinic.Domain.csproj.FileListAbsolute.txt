@@ -28,3 +28,4 @@ C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Cli
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Domain\obj\Debug\net10.0\refint\Hospitaly.Modules.Clinic.Domain.dll
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Domain\obj\Debug\net10.0\Hospitaly.Modules.Clinic.Domain.pdb
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Domain\obj\Debug\net10.0\ref\Hospitaly.Modules.Clinic.Domain.dll
+C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Domain\obj\Debug\net10.0\Hospitaly.Modules.Clinic.Domain.sourcelink.json

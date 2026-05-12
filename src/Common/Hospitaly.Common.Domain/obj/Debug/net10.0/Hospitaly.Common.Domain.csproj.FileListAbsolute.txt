@@ -22,3 +22,4 @@ C:\Users\khali\RiderProjects\Hospitaly\src\Common\Hospitaly.Common.Domain\obj\De
 C:\Users\khali\RiderProjects\Hospitaly\src\Common\Hospitaly.Common.Domain\obj\Debug\net10.0\refint\Hospitaly.Common.Domain.dll
 C:\Users\khali\RiderProjects\Hospitaly\src\Common\Hospitaly.Common.Domain\obj\Debug\net10.0\Hospitaly.Common.Domain.pdb
 C:\Users\khali\RiderProjects\Hospitaly\src\Common\Hospitaly.Common.Domain\obj\Debug\net10.0\ref\Hospitaly.Common.Domain.dll
+C:\Users\khali\RiderProjects\Hospitaly\src\Common\Hospitaly.Common.Domain\obj\Debug\net10.0\Hospitaly.Common.Domain.sourcelink.json

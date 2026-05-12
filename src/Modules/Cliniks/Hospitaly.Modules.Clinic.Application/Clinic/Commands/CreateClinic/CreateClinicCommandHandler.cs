@@ -14,6 +14,10 @@ internal sealed class CreateClinicCommandHandler(
     IClinicRepository clinicRepository,
     IUnitOfWork unitOfWork) : ICommandHandler<CreateClinicCommand, Guid>
 {
+    /*
+     * todo :
+     * - add trading name + logo ur when implementing file support 
+     */
     public async Task<ErrorOr<Guid>> Handle(CreateClinicCommand request, CancellationToken cancellationToken)
     {
         var audit = new AuditInfo(request.UserId, DateTime.UtcNow);
@@ -41,16 +45,13 @@ internal sealed class CreateClinicCommandHandler(
             validityResult.Value,
             LicenceAdministrativeStatus.Active);
         if (licenseResult.IsError) return licenseResult.Errors;
-
-        var monday = OperatingHours.Create(DayOfWeek.Monday, false, TimeSpan.FromHours(9), TimeSpan.FromHours(17));
-        if (monday.IsError) return monday.Errors;
+        
 
         var clinicResult = ClinicDomain.Create(
             infoResult.Value,
             addressResult.Value,
             licenseResult.Value,
             contactResult.Value,
-            monday.Value,
             audit);
         if (clinicResult.IsError) return clinicResult.Errors;
 

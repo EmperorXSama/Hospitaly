@@ -61,3 +61,4 @@ C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Users\Hospitaly.Modules.Users
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Users\Hospitaly.Modules.Users.Infrastructure\obj\Debug\net10.0\refint\Hospitaly.Modules.Users.Infrastructure.dll
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Users\Hospitaly.Modules.Users.Infrastructure\obj\Debug\net10.0\Hospitaly.Modules.Users.Infrastructure.pdb
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Users\Hospitaly.Modules.Users.Infrastructure\obj\Debug\net10.0\ref\Hospitaly.Modules.Users.Infrastructure.dll
+C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Users\Hospitaly.Modules.Users.Infrastructure\obj\Debug\net10.0\Hospitaly.Modules.Users.Infrastructure.sourcelink.json

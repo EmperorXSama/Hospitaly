@@ -21,7 +21,8 @@ public sealed class GetUserInfoQueryHandler(IDbConnectionFactory dbConnectionFac
                  "IdentityId" AS {nameof(UserResponse.IdentityId)},
                  "Sex" AS {nameof(UserResponse.Sex)},
                  "DateOfBirth" AS {nameof(UserResponse.DateOfBirth)},
-                 "BloodType" AS {nameof(UserResponse.BloodType)}
+                 "BloodType" AS {nameof(UserResponse.BloodType)},
+                 "CreatedOnUtc" AS {nameof(UserResponse.CreatedOnUtc)}
              FROM users."Users"
              WHERE "Id" = @UserId
              """;

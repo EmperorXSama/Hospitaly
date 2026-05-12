@@ -11,16 +11,17 @@ public class Clinic : AggregateRoot
     private readonly List<ClinicSpecialty> _specialties = [];
     private readonly List<Department> _departments = [];
     private readonly List<ClinicOwnerShip> _ownerships = [];
+    private readonly List<OperatingHours> _operatingHours = [];
 
     public ClinicInfo Info { get; private set; }
     public ClinicAddress Address { get; private set; }
     public OperatingLicense OperatingLicense { get; private set; }
     public ClinicContactInfo ContactInfo { get; private set; }
-    public OperatingHours OperatingHours { get; private set; }
 
     public IReadOnlyCollection<ClinicSpecialty> Specialties => _specialties.AsReadOnly();
     public IReadOnlyCollection<Department> Departments => _departments.AsReadOnly();
     public IReadOnlyCollection<ClinicOwnerShip> Ownerships => _ownerships.AsReadOnly();
+    public IReadOnlyCollection<OperatingHours> OperatingHours => _operatingHours.AsReadOnly();
 
     private Clinic()
     {
@@ -35,7 +36,6 @@ public class Clinic : AggregateRoot
         ClinicAddress address,
         OperatingLicense operatingLicense,
         ClinicContactInfo contactInfo,
-        OperatingHours operatingHours,
         AuditInfo audit)
     {
         var clinic = new Clinic(audit)
@@ -44,7 +44,6 @@ public class Clinic : AggregateRoot
             Address = address,
             OperatingLicense = operatingLicense,
             ContactInfo = contactInfo,
-            OperatingHours = operatingHours
         };
         return clinic;
     }

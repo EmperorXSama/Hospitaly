@@ -1,4 +1,5 @@
 using Hospitaly.Modules.Clinic.Domain.Clinic.Entities;
+using Hospitaly.Modules.Clinic.Domain.Clinic.ValueObjects;
 using ClinicEntity = Hospitaly.Modules.Clinic.Domain.Clinic.Clinic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -58,19 +59,43 @@ public class ClinicConfiguration : IEntityTypeConfiguration<ClinicEntity>
             contact.Property(c => c.Website).HasMaxLength(500);
         });
 
-        builder.OwnsOne(c => c.OperatingHours, hours =>
+        builder.OwnsMany(c => c.OperatingHours, hours =>
         {
-            hours.Property(h => h.Day).HasConversion<string>().HasMaxLength(20);
-            hours.Property(h => h.IsResting);
+            hours.ToTable("ClinicOperatingHours");
+
+            hours.WithOwner()
+                .HasForeignKey("ClinicId");
+
+            hours.Property(h => h.Day)
+                .HasColumnName("Day")
+                .HasConversion<string>()
+                .HasMaxLength(20)
+                .IsRequired();
+
+            // One schedule row per clinic per day
+            hours.HasKey("ClinicId", nameof(OperatingHours.Day));
+
+            hours.Property(h => h.IsResting)
+                .HasColumnName("IsResting")
+                .IsRequired();
+
+            hours.Ignore(h => h.IsOffDay);
 
             hours.OwnsOne(h => h.Hours, opHours =>
             {
-                opHours.Property("_isActive").HasColumnName("hours_active");
+                opHours.Property<bool>("_isActive")
+                    .HasColumnName("HoursActive");
 
                 opHours.OwnsOne(o => o.Value, range =>
                 {
-                    range.Property(r => r.Start).HasColumnType("timestamp with time zone");
-                    range.Property(r => r.End).HasColumnType("timestamp with time zone");
+                    range.Property(r => r.Start)
+                        .HasColumnName("OpenTime")
+                        .HasColumnType("timestamp with time zone")
+                        .IsRequired();
+
+                    range.Property(r => r.End)
+                        .HasColumnName("CloseTime")
+                        .HasColumnType("timestamp with time zone");
                 });
             });
         });
