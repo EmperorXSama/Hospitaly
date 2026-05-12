@@ -79,6 +79,9 @@ namespace Hospitaly.Modules.Users.Infrastructure.Database.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("character varying(5)");
 
+                    b.Property<DateTimeOffset>("CreatedOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 

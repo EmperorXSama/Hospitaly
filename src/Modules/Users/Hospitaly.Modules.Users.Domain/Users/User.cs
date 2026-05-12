@@ -16,6 +16,7 @@ public class User : AggregateRoot
     public Sex Sex { get; private set; }
     public DateOnly DateOfBirth { get; private set; }
     public BloodType? BloodType { get; private set; }
+    public DateTimeOffset CreatedOnUtc { get; private set; }
 
     private readonly List<Role> _roles = [];
     public IReadOnlyCollection<Role> Roles => _roles.ToList();
@@ -47,6 +48,7 @@ public class User : AggregateRoot
         };
         user._roles.Add(Role.Member);
         user.RequiresOnboarding = true;
+        user.CreatedOnUtc = DateTimeOffset.UtcNow;
         user.RaiseDomainEvent(new UserRegisteredDomainEvent(user.Id));
 
         return user;

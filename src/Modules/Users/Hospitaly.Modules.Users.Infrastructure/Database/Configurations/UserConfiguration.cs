@@ -40,6 +40,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(5)
             .IsRequired(false);
 
+        builder.Property(u => u.CreatedOnUtc)
+            .HasColumnType("timestamp with time zone")
+            .IsRequired();
+
         builder.HasIndex(u => u.Email).IsUnique();
     }
 }

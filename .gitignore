@@ -1,0 +1,50 @@
+# Build outputs
+bin/
+obj/
+out/
+
+# Test and coverage
+TestResults/
+coverage/
+coverage-*/
+*.coverage
+*.coveragexml
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / IntelliJ
+.idea/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local tooling
+.vs/
+*.nupkg
+*.snupkg

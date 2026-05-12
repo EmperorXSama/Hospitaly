@@ -8,4 +8,5 @@ public record UserResponse(
     string IdentityId,
     string Sex,
     DateOnly DateOfBirth,
-    string? BloodType);
+    string? BloodType,
+    DateTimeOffset CreatedOnUtc);
