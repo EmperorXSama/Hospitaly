@@ -18,7 +18,7 @@ public class StaffMember : AggregateRoot
     {
     }
 
-    private StaffMember(AuditInfo audit) : base(audit)
+    private StaffMember(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 

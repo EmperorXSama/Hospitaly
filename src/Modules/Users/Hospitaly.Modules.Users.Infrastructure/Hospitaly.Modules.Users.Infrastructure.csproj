@@ -8,9 +8,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Common\Hospitaly.Common.Infrastructure\Hospitaly.Common.Infrastructure.csproj" />
-      <ProjectReference Include="..\..\Cliniks\Hospitaly.Modules.Clinic.Infrastructure\Hospitaly.Modules.Clinic.Infrastructure.csproj" />
       <ProjectReference Include="..\Hospitaly.Modules.Users.Application\Hospitaly.Modules.Users.Application.csproj" />
       <ProjectReference Include="..\Hospitaly.Modules.Users.Presentation\Hospitaly.Modules.Users.Presentation.csproj" />
+      <ProjectReference Include="..\PublicApi\PublicApi.csproj" />
     </ItemGroup>
 
     <ItemGroup>

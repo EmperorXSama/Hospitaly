@@ -17,7 +17,7 @@ public class OperatingLicense: Entity
     {
     }
 
-    private OperatingLicense(AuditInfo audit) : base(audit)
+    private OperatingLicense(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 
@@ -47,6 +47,13 @@ public class OperatingLicense: Entity
     
     
     
+    public ErrorOr<Success> UpdateStatus(LicenceAdministrativeStatus status, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        AdministrativeStatus = status;
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
     public bool IsOperational =>
         AdministrativeStatus == LicenceAdministrativeStatus.Active &&
         ValidityPeriod.GetStatus(DateTimeOffset.UtcNow) != (LicenceValidityStatus.Expired | LicenceValidityStatus.NotStarted);

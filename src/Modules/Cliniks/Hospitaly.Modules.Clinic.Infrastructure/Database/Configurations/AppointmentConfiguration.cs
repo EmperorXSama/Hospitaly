@@ -62,6 +62,14 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
             });
         });
 
+        builder.OwnsOne(a => a.Audit, audit =>
+        {
+            audit.Property(a => a.CreatedBy).HasColumnName("CreatedBy").IsRequired();
+            audit.Property(a => a.CreatedOnUtc).HasColumnName("CreatedOnUtc").HasColumnType("timestamp with time zone").IsRequired();
+            audit.Property(a => a.UpdatedBy).HasColumnName("UpdatedBy");
+            audit.Property(a => a.UpdatedOnUtc).HasColumnName("UpdatedOnUtc").HasColumnType("timestamp with time zone");
+        });
+
         builder.HasIndex(a => a.DoctorId);
         builder.HasIndex(a => a.PatientId);
         builder.HasIndex(a => a.ClinicId);

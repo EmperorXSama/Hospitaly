@@ -8,18 +8,23 @@ public sealed record OperatingHours
 {
     public DayOfWeek Day { get; init; }
     public OperatingTimeRange? Hours { get; init; }
-    public bool IsResting { get; init; }
+    public OperatingTimeRange? RestingTime { get; init; }
+    
     public bool IsOffDay => Hours is null;
+    public bool HasRestingTime => RestingTime is not null;
 
     private OperatingHours()
     {
     }
 
-    private OperatingHours(DayOfWeek day, OperatingTimeRange? hours, bool isResting)
+    private OperatingHours(
+        DayOfWeek day, 
+        OperatingTimeRange? hours,
+        OperatingTimeRange? restingTime )
     {
         Day = day;
         Hours = hours;
-        IsResting = isResting;
+        RestingTime = restingTime;
     }
 
     public static ErrorOr<OperatingHours> Create(
@@ -27,35 +32,98 @@ public sealed record OperatingHours
         bool isClosed,
         TimeSpan? openTime = null,
         TimeSpan? closeTime = null,
-        bool isResting = false)
+        TimeSpan? restingStartTime = null,
+        TimeSpan? restingEndTime = null)
     {
         var errors = new List<Error>();
 
         OperatingTimeRange? hours = null;
+        OperatingTimeRange? restingTime = null;
         
-        if (!isClosed)
+       if (isClosed)
         {
-            var baseDate = new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero);
-            if (!openTime.HasValue || !closeTime.HasValue)
+            if (openTime.HasValue || closeTime.HasValue || restingStartTime.HasValue || restingEndTime.HasValue)
             {
                 errors.Add(Error.Validation(
-                    code: "OperatingHours.MissingTimes",
-                    description: "Open and close times must be provided for non-closed days.",
+                    code: "OperatingHours.ClosedDayCannotHaveTimes",
+                    description: "Closed days cannot have operating or resting times.",
+                    metadata: new Dictionary<string, object> { ["day"] = day }));
+            }
+
+            return errors.Any()
+                ? errors
+                : new OperatingHours(day, null, null);
+        }
+
+        var baseDate = new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
+        if (!openTime.HasValue || !closeTime.HasValue)
+        {
+            errors.Add(Error.Validation(
+                code: "OperatingHours.MissingTimes",
+                description: "Open and close times must be provided for non-closed days.",
+                metadata: new Dictionary<string, object> { ["day"] = day }));
+        }
+        else
+        {
+            var operatingRangeResult = OperatingTimeRange.Create(
+                baseDate + openTime.Value,
+                baseDate + closeTime.Value);
+
+            if (operatingRangeResult.IsError)
+            {
+                errors.AddRange(operatingRangeResult.Errors);
+            }
+            else
+            {
+                hours = operatingRangeResult.Value;
+            }
+        }
+
+        var hasAnyRestingTime =
+            restingStartTime.HasValue || restingEndTime.HasValue;
+
+        if (hasAnyRestingTime)
+        {
+            if (!restingStartTime.HasValue || !restingEndTime.HasValue)
+            {
+                errors.Add(Error.Validation(
+                    code: "OperatingHours.InvalidRestingTime",
+                    description: "Both resting start time and resting end time must be provided.",
                     metadata: new Dictionary<string, object> { ["day"] = day }));
             }
             else
             {
-                var startDto = baseDate + openTime.Value;
-                var endDto = baseDate + closeTime.Value;
-                var h = OperatingTimeRange.Create(startDto, endDto);
-                if (h.IsError)
+                var restingRangeResult = OperatingTimeRange.Create(
+                    baseDate + restingStartTime.Value,
+                    baseDate + restingEndTime.Value);
+
+                if (restingRangeResult.IsError)
                 {
-                    errors.AddRange(h.Errors);
+                    errors.AddRange(restingRangeResult.Errors);
                 }
                 else
                 {
-                    hours = h.Value;
+                    restingTime = restingRangeResult.Value;
                 }
+            }
+        }
+
+        if (hours is not null && restingTime is not null)
+        {
+            if (!hours.Value.ContainsRange(restingTime.Value))
+            {
+                errors.Add(Error.Validation(
+                    code: "OperatingHours.RestingTimeOutsideOperatingHours",
+                    description: "Resting time must be inside operating hours.",
+                    metadata: new Dictionary<string, object>
+                    {
+                        ["day"] = day,
+                        ["openTime"] = openTime!,
+                        ["closeTime"] = closeTime!,
+                        ["restingStartTime"] = restingStartTime!,
+                        ["restingEndTime"] = restingEndTime!
+                    }));
             }
         }
 
@@ -64,6 +132,6 @@ public sealed record OperatingHours
             return errors;
         }
 
-        return new OperatingHours(day, hours, isResting);
+        return new OperatingHours(day, hours, restingTime);
     }
 }

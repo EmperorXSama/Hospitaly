@@ -27,7 +27,7 @@ public class Clinic : AggregateRoot
     {
     }
 
-    protected Clinic(AuditInfo audit) : base(audit)
+    protected Clinic(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 
@@ -138,7 +138,114 @@ public class Clinic : AggregateRoot
         SetUpdated(updatedById, updatedOn);
         return Result.Success;
     }
-    
+    // In Clinic.cs
+    public ErrorOr<Success> TransferOwnershipToNewOwner(
+        Guid fromOwnershipId,
+        Guid targetOwnerId,
+        OwnerShipType ownershipType,
+        decimal percentageToTransfer,
+        OwnershipEffectiveRange effectiveRange,
+        Guid updatedById,
+        DateTimeOffset updatedOn)
+    {
+        var source = _ownerships.FirstOrDefault(o => o.Id == fromOwnershipId);
+        if (source is null)
+            return Error.NotFound("Ownership.NotFound", $"Ownership {fromOwnershipId} not found.");
+
+        if (source.Status != OwnerShipStatus.Active)
+            return Error.Failure("Ownership.NotActive", "Only active ownerships can transfer share.");
+
+        if (source.SharePercentage <= percentageToTransfer)
+            return Error.Validation("Ownership.InvalidPercentage",
+                $"Source has {source.SharePercentage}% but tried to transfer {percentageToTransfer}%.");
+
+        var reduceResult = source.UpdateSharePercentage(
+            source.SharePercentage - percentageToTransfer, updatedById, updatedOn);
+        if (reduceResult.IsError)
+            return reduceResult.Errors;
+
+        // Aggregate creates the new ownership internally
+        var audit = new AuditInfo(updatedById, updatedOn);
+        var newOwnershipResult = ClinicOwnerShip.Create(
+            audit,
+            targetOwnerId,
+            ownershipType,
+            percentageToTransfer,
+            effectiveRange,
+            OwnerShipStatus.Active);
+
+        if (newOwnershipResult.IsError)
+            return newOwnershipResult.Errors;
+
+        _ownerships.Add(newOwnershipResult.Value);
+
+        var invariantCheck = EnforceOwnershipInvariant(_ownerships);
+        if (invariantCheck.IsError)
+            return invariantCheck.Errors;
+
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> UpdateOwnerShare(Guid ownershipId, decimal newSharePercentage, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        var ownership = _ownerships.FirstOrDefault(o => o.Id == ownershipId);
+        if (ownership is null)
+            return Error.NotFound("Ownership.NotFound", $"Ownership with id {ownershipId} was not found.");
+
+        var result = ownership.UpdateSharePercentage(newSharePercentage, updatedById, updatedOn);
+        if (result.IsError)
+            return result.Errors;
+
+        var invariantCheck = EnforceOwnershipInvariant(_ownerships);
+        if (invariantCheck.IsError)
+            return invariantCheck.Errors;
+
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> ExpireOwnership(Guid ownershipId, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        var ownership = _ownerships.FirstOrDefault(o => o.Id == ownershipId);
+        if (ownership is null)
+            return Error.NotFound("Ownership.NotFound", $"Ownership with id {ownershipId} was not found.");
+
+        var result = ownership.Expire(updatedById, updatedOn);
+        if (result.IsError)
+            return result.Errors;
+
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> TerminateOwnership(Guid ownershipId, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        var ownership = _ownerships.FirstOrDefault(o => o.Id == ownershipId);
+        if (ownership is null)
+            return Error.NotFound("Ownership.NotFound", $"Ownership with id {ownershipId} was not found.");
+
+        var result = ownership.Terminate(updatedById, updatedOn);
+        if (result.IsError)
+            return result.Errors;
+
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> ApplyOwnershipEndDate(Guid ownershipId, DateTimeOffset effectiveUntil, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        var ownership = _ownerships.FirstOrDefault(o => o.Id == ownershipId);
+        if (ownership is null)
+            return Error.NotFound("Ownership.NotFound", $"Ownership with id {ownershipId} was not found.");
+
+        var result = ownership.ApplyEndDate(updatedById, effectiveUntil, updatedOn);
+        if (result.IsError)
+            return result.Errors;
+
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
 
     private ErrorOr<Success> EnforceOwnershipInvariant( IEnumerable<ClinicOwnerShip> ownerships)
     {
@@ -157,6 +264,131 @@ public class Clinic : AggregateRoot
                 );
         }
 
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> UpdateInfo(ClinicInfo info, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        Info = info;
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> UpdateAddress(ClinicAddress address, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        Address = address;
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> UpdateContactInfo(ClinicContactInfo contactInfo, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        ContactInfo = contactInfo;
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> ReplaceOperatingLicense(OperatingLicense license, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        OperatingLicense = license;
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> UpdateOperatingLicenseStatus(LicenceAdministrativeStatus status, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        var result = OperatingLicense.UpdateStatus(status, updatedById, updatedOn);
+        if (result.IsError)
+            return result.Errors;
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public void AddDepartment(Department department)
+    {
+        _departments.Add(department);
+    }
+
+    public ErrorOr<Success> UpdateDepartment(Guid departmentId, string name, string code, Guid? parentId, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        var department = _departments.FirstOrDefault(d => d.Id == departmentId);
+        if (department is null)
+            return Error.NotFound("Department.NotFound", $"Department with id {departmentId} was not found.");
+
+        var result = department.Update(name, code, parentId, updatedById, updatedOn);
+        if (result.IsError)
+            return result.Errors;
+
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> SetDepartmentActiveState(Guid departmentId, bool isActive, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        var department = _departments.FirstOrDefault(d => d.Id == departmentId);
+        if (department is null)
+            return Error.NotFound("Department.NotFound", $"Department with id {departmentId} was not found.");
+
+        var result = department.SetActiveState(isActive, updatedById, updatedOn);
+        if (result.IsError)
+            return result.Errors;
+
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> AddClinicSpecialty(ClinicSpecialty specialty)
+    {
+        if (_specialties.Any(s => s.SpecialtyId == specialty.SpecialtyId))
+            return Error.Conflict(
+                code: "ClinicSpecialty.Duplicate",
+                description: $"Specialty {specialty.SpecialtyId} is already linked to this clinic.");
+
+        _specialties.Add(specialty);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> UpdateClinicSpecialty(Guid specialtyId, bool isActive, decimal? consultationFee)
+    {
+        var specialty = _specialties.FirstOrDefault(s => s.SpecialtyId == specialtyId);
+        if (specialty is null)
+            return Error.NotFound(
+                code: "ClinicSpecialty.NotFound",
+                description: $"Specialty {specialtyId} is not linked to this clinic.");
+
+        specialty.Update(isActive, consultationFee);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> RemoveClinicSpecialty(Guid specialtyId)
+    {
+        var specialty = _specialties.FirstOrDefault(s => s.SpecialtyId == specialtyId);
+        if (specialty is null)
+            return Error.NotFound(
+                code: "ClinicSpecialty.NotFound",
+                description: $"Specialty {specialtyId} is not linked to this clinic.");
+
+        _specialties.Remove(specialty);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> UpdateOperatingHours(List<OperatingHours> operatingHoursToModify, Guid requestUserId, DateTime utcNow)
+    {
+
+        foreach (var operationHour in operatingHoursToModify)
+        {
+            var existing = _operatingHours.FindIndex(o => o.Day == operationHour.Day);
+            if (existing == -1)
+            {
+                _operatingHours.Add(operationHour);
+            }
+            else
+            {
+                _operatingHours[existing] = operationHour;
+            }
+        }
+      
+        SetUpdated(requestUserId, utcNow);
         return Result.Success;
     }
 }

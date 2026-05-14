@@ -27,6 +27,15 @@ public class OperatingLicenseConfiguration : IEntityTypeConfiguration<OperatingL
         });
 
         builder.Property<Guid>("ClinicId");
+
+        builder.OwnsOne(ol => ol.Audit, audit =>
+        {
+            audit.Property(a => a.CreatedBy).HasColumnName("CreatedBy").IsRequired();
+            audit.Property(a => a.CreatedOnUtc).HasColumnName("CreatedOnUtc").HasColumnType("timestamp with time zone").IsRequired();
+            audit.Property(a => a.UpdatedBy).HasColumnName("UpdatedBy");
+            audit.Property(a => a.UpdatedOnUtc).HasColumnName("UpdatedOnUtc").HasColumnType("timestamp with time zone");
+        });
+
         builder.HasIndex("ClinicId").IsUnique();
     }
 }

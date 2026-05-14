@@ -18,7 +18,7 @@ public class MaintenanceBlock : Entity
     {
     }
 
-    private MaintenanceBlock(AuditInfo audit) : base(audit)
+    private MaintenanceBlock(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 
@@ -27,7 +27,7 @@ public class MaintenanceBlock : Entity
         DateTimeRange maintenancePeriod,
         MaintenanceReason reason,
         Guid scheduledBy,
-        AuditInfo audit) : base(audit)
+        AuditInfo audit) : base(audit,Guid.NewGuid())
     {
         RoomId = roomId;
         MaintenancePeriod = maintenancePeriod;

@@ -20,7 +20,7 @@ public class Room : AggregateRoot
     {
     }
 
-    private Room(AuditInfo audit) : base(audit)
+    private Room(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 

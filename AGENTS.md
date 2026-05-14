@@ -141,6 +141,66 @@ BFF is at `https://localhost:7214`. YARP routes:
 
 Never call `http://localhost:5500` (the API) directly from Angular. All API calls must go through `https://localhost:7214/api/...` so YARP can attach the session token.
 
+### Strict Angular → BFF → API flow (required)
+
+Use this rule for all normal business features (clinics, users, appointments, etc.).
+
+- Angular must always send backend/API requests to the BFF host.
+- The BFF uses YARP reverse proxy to forward API requests to the backend API.
+- Do not make Angular call the API directly.
+- Do not create BFF controller endpoints just to manually handle normal API operations.
+- Do not create BFF endpoints like "update clinic info", "create clinic", "update user profile", etc. if the API already owns that operation.
+- For normal business operations, Angular should call the BFF route and YARP should forward it to the API.
+- BFF controllers should only be used for true BFF-specific behavior (login, logout, session management, auth callbacks, `/me`, or frontend-specific composition).
+- Do not duplicate API DTOs inside the BFF unless there is a real BFF-specific reason.
+- Do not move business/domain logic into the BFF.
+
+Correct example:
+
+```text
+Angular sends:
+PUT /bff/api/clinics/{clinicId}
+
+BFF/YARP forwards to:
+PUT /api/clinics/{clinicId}
+
+API handles validation, command/query dispatch, business logic, database update, and response.
+```
+
+Incorrect example (avoid):
+
+```text
+Angular sends:
+PUT /bff/clinic/update-info
+
+BFF controller receives a DTO, manually calls the API, and maps the result.
+```
+
+This incorrect style should not be used unless there is a very specific BFF-only reason.
+
+Angular response handling rule:
+
+- Angular services should unwrap `ApiResponse<T>` and return the actual `data` model to components.
+- Components should not repeatedly deal with `ApiResponse<T>` unless there is a specific reason.
+
+Example:
+
+```ts
+// service
+updateClinic(clinicId: string, payload: UpdateClinicRequest): Observable<ClinicDto> {
+  return this.http
+    .put<ApiResponse<ClinicDto>>(`/bff/api/clinics/${clinicId}`, payload)
+    .pipe(map((response) => response.data));
+}
+
+// component
+save(): void {
+  this.clinicsService.updateClinic(this.clinicId, this.form.value).subscribe((clinic) => {
+    this.clinic = clinic;
+  });
+}
+```
+
 ### `/me` endpoint and user state
 
 - `GET /bff/user/me` is the single source of truth for frontend user state.

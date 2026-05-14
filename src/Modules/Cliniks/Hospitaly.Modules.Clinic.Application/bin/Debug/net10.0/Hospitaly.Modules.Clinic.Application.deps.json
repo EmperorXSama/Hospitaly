@@ -9,7 +9,8 @@
       "Hospitaly.Modules.Clinic.Application/1.0.0": {
         "dependencies": {
           "Hospitaly.Common.Application": "1.0.0",
-          "Hospitaly.Modules.Clinic.Domain": "1.0.0"
+          "Hospitaly.Modules.Clinic.Domain": "1.0.0",
+          "PublicApi": "1.0.0"
         },
         "runtime": {
           "Hospitaly.Modules.Clinic.Application.dll": {}
@@ -170,6 +171,14 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "PublicApi/1.0.0": {
+        "runtime": {
+          "PublicApi.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -274,6 +283,11 @@
       "sha512": ""
     },
     "Hospitaly.Modules.Clinic.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PublicApi/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

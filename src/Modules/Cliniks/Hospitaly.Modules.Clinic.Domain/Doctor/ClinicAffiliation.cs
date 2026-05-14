@@ -30,7 +30,7 @@ public class ClinicAffiliation : Entity
         DateTime joinedDate,
         Guid? departmentId,
         List<Privilege> grantedPrivileges,
-        AuditInfo audit) : base(audit)
+        AuditInfo audit) : base(audit,Guid.NewGuid())
     {
         ClinicId = clinicId;
         DoctorId = doctorId;
@@ -81,6 +81,17 @@ public class ClinicAffiliation : Entity
         var audit = new AuditInfo(createdBy ?? Guid.Empty, createdOnUtc ?? DateTime.UtcNow);
         var privileges = grantedPrivileges ?? [];
         return new ClinicAffiliation(clinicId, doctorId, AffiliationStatus.Pending, joinedDate, departmentId, privileges, audit);
+    }
+
+    public ErrorOr<Success> Activate()
+    {
+        if (Status == AffiliationStatus.Terminated)
+        {
+            return DoctorErrors.AffiliationAlreadyTerminated();
+        }
+
+        Status = AffiliationStatus.Active;
+        return Result.Success;
     }
 
     public ErrorOr<Success> Suspend()

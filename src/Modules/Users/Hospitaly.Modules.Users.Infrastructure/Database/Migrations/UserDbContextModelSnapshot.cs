@@ -40,6 +40,10 @@ namespace Hospitaly.Modules.Users.Infrastructure.Database.Migrations
                         },
                         new
                         {
+                            Code = "clinics:ownership:transfer"
+                        },
+                        new
+                        {
                             Code = "user:read"
                         },
                         new
@@ -66,6 +70,18 @@ namespace Hospitaly.Modules.Users.Infrastructure.Database.Migrations
                         new
                         {
                             Name = "Member"
+                        },
+                        new
+                        {
+                            Name = "HospitalAdministrator"
+                        },
+                        new
+                        {
+                            Name = "Patient"
+                        },
+                        new
+                        {
+                            Name = "Doctor"
                         });
                 });
 
@@ -144,6 +160,11 @@ namespace Hospitaly.Modules.Users.Infrastructure.Database.Migrations
                         {
                             PermissionCode = "clinics:read",
                             RoleName = "Member"
+                        },
+                        new
+                        {
+                            PermissionCode = "clinics:ownership:transfer",
+                            RoleName = "HospitalAdministrator"
                         },
                         new
                         {

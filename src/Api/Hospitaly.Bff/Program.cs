@@ -40,6 +40,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+
 app.UsePresentation();
 
 app.UseHttpsRedirection();

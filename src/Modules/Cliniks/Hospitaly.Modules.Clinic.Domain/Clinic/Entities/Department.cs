@@ -20,13 +20,40 @@ public class Department : Entity
     }
 
     private Department(string name, string code, bool isActive, Guid? parentId, Guid clinicId, AuditInfo audit)
-        : base(audit)
+        : base(audit,Guid.NewGuid())
     {
         Name = name;
         Code = code;
         IsActive = isActive;
         ParentId = parentId;
         ClinicId = clinicId;
+    }
+
+    public ErrorOr<Success> Update(string name, string code, Guid? parentId, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        var errors = new List<Error>();
+
+        if (string.IsNullOrWhiteSpace(name))
+            errors.Add(Error.Validation("Department.InvalidName", "Department name cannot be empty."));
+
+        if (string.IsNullOrWhiteSpace(code))
+            errors.Add(Error.Validation("Department.InvalidCode", "Department code cannot be empty."));
+
+        if (errors.Any())
+            return errors;
+
+        Name = name;
+        Code = code;
+        ParentId = parentId;
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> SetActiveState(bool isActive, Guid updatedById, DateTimeOffset updatedOn)
+    {
+        IsActive = isActive;
+        SetUpdated(updatedById, updatedOn);
+        return Result.Success;
     }
 
     public static ErrorOr<Department> Create(

@@ -21,7 +21,7 @@ public class ClinicOwnerShip : Entity
         OwnerShipType ownerShipType,
         decimal sharedPercentage,
         OwnershipEffectiveRange ownershipEffectivePeriod,
-        OwnerShipStatus status) : base(audit)
+        OwnerShipStatus status) : base(audit , Guid.NewGuid())
     {
         OwnerId = ownerId;
         OwnerShipType = ownerShipType;

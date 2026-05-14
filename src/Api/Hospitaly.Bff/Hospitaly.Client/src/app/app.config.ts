@@ -4,6 +4,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { routes } from './app.routes';
 import { credentialsInterceptor } from './interceptors/credentials.interceptor';
+import { notificationInterceptor } from './interceptors/notification.interceptor';
 import { AuthService } from './services/auth';
 
 function initializeAuth(): () => Promise<unknown> {
@@ -23,7 +24,7 @@ function initializeAuth(): () => Promise<unknown> {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withInterceptors([credentialsInterceptor])),
+    provideHttpClient(withInterceptors([credentialsInterceptor, notificationInterceptor])),
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAuth,

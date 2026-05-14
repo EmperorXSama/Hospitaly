@@ -1,4 +1,5 @@
-﻿using Hospitaly.Common.Domain;
+﻿using System.Diagnostics;
+using Hospitaly.Common.Domain;
 using Hospitaly.Modules.Clinic.Application.Abstractions.Data;
 using Hospitaly.Modules.Clinic.Domain.Appointment;
 using Hospitaly.Modules.Clinic.Domain.Clinic.Entities;
@@ -39,21 +40,6 @@ public class ClinikDbContext(DbContextOptions<ClinikDbContext> options) : DbCont
         modelBuilder.HasDefaultSchema(Schemas.Clinic);
         modelBuilder.Ignore<DomainEvent>();
         modelBuilder.ApplyConfigurationsFromAssembly(AssemblyReference.assembly);
-
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes().ToList())
-        {
-            if (!typeof(Entity).IsAssignableFrom(entityType.ClrType))
-            {
-                continue;
-            }
-
-            modelBuilder.Entity(entityType.ClrType).OwnsOne(typeof(AuditInfo), "Audit", audit =>
-            {
-                audit.Property("CreatedBy").IsRequired();
-                audit.Property("CreatedOnUtc").HasColumnType("timestamp with time zone").IsRequired();
-                audit.Property("UpdatedBy");
-                audit.Property("UpdatedOnUtc").HasColumnType("timestamp with time zone");
-            });
-        }
     }
+    
 }

@@ -70,6 +70,11 @@ public class DoctorSpecialty : IEquatable<DoctorSpecialty>
         return new DoctorSpecialty(doctorId, specialtyId, isPrimary, certificationNumber, certifiedAt);
     }
 
+    public void SetPrimary(bool isPrimary)
+    {
+        IsPrimary = isPrimary;
+    }
+
     public bool Equals(DoctorSpecialty? other)
     {
         if (other is null) return false;

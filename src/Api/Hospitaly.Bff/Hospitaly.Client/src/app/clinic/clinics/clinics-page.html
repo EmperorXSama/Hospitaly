@@ -1,0 +1,47 @@
+<div class="p-6 lg:p-8 space-y-6">
+  <header>
+    <p class="text-xs uppercase tracking-[1.4px] text-muted">Clinic</p>
+    <h1 class="text-[30px] font-bold leading-tight tracking-[-0.8px] text-on-dark mt-1">Clinics</h1>
+    <p class="text-body mt-2">Select a clinic to open management tools and scheduling.</p>
+  </header>
+
+  @if (isLoading()) {
+    <div class="rounded-xl border border-hairline bg-surface-card p-5 text-body">Loading clinics...</div>
+  } @else if (clinics().length === 0) {
+    <div class="rounded-xl border border-hairline bg-surface-card p-5 text-body">No clinics found for your account.</div>
+  } @else {
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      @for (clinic of clinics(); track clinic.clinicId) {
+        <button type="button" (click)="openClinic(clinic)" class="text-left rounded-xl border border-hairline bg-surface-card p-4 hover:border-primary/40 hover:bg-surface-elevated transition-colors cursor-pointer">
+          <p class="text-sm text-muted">{{ clinic.ownerShipType }} � {{ clinic.status }}</p>
+          <h2 class="text-lg font-semibold text-on-dark mt-1">{{ clinic.name }}</h2>
+          <p class="text-xs text-primary mt-3">Open management</p>
+        </button>
+      }
+    </div>
+  }
+</div>
+
+@if (selectedClinic(); as selected) {
+  <div class="fixed inset-0 z-50 bg-black/40" (click)="closeWidget()"></div>
+  <aside class="fixed right-0 top-0 z-50 h-full w-full max-w-sm border-l border-hairline bg-canvas p-5 space-y-5">
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-semibold text-on-dark">Clinic Management</h2>
+      <button type="button" (click)="closeWidget()" class="text-muted hover:text-on-dark cursor-pointer">Close</button>
+    </div>
+
+    <div class="rounded-xl border border-hairline bg-surface-card p-4">
+      <p class="text-xs text-muted">Selected clinic</p>
+      <p class="text-base text-on-dark font-semibold mt-1">{{ selected.name }}</p>
+      <p class="text-xs text-body mt-1">{{ selected.ownerShipType }} � {{ selected.status }}</p>
+    </div>
+
+    <button type="button" (click)="manageSchedule(selected.clinicId)" class="w-full h-10 rounded-md bg-primary text-on-primary text-sm font-semibold hover:bg-primary-active cursor-pointer">
+      Manage Schedule
+    </button>
+
+    <button type="button" (click)="manageOwnership(selected.clinicId)" class="w-full h-10 rounded-md border border-hairline bg-surface-card text-on-dark text-sm font-semibold hover:bg-surface-elevated cursor-pointer">
+      Manage Ownership
+    </button>
+  </aside>
+}

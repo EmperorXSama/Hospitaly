@@ -1,0 +1,81 @@
+<div class="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000] p-4" (click)="close.emit()">
+  <div class="w-full max-w-2xl bg-surface-elevated border border-hairline rounded-xl overflow-hidden" (click)="$event.stopPropagation()">
+    <div class="p-5 border-b border-hairline">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-on-dark">Confirm Transfer</h2>
+        <button type="button" (click)="close.emit()" class="text-muted hover:text-on-dark cursor-pointer">Close</button>
+      </div>
+    </div>
+
+    <div class="p-5 space-y-6">
+      <div class="flex items-center gap-4">
+        <div class="flex-1 rounded-xl border border-hairline bg-surface-card p-4">
+          <div class="size-14 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold text-primary">{{ (sourceOwnership().owner?.firstName ?? '?').charAt(0) }}{{ (sourceOwnership().owner?.lastName ?? '').charAt(0) }}</span>
+          </div>
+          <p class="text-sm font-bold text-on-dark text-center truncate">{{ sourceOwnership().owner?.firstName }} {{ sourceOwnership().owner?.lastName }}</p>
+          <p class="text-xs text-body text-center">{{ sourceOwnership().ownerShipType }}</p>
+          <p class="text-xs text-primary text-center mt-1">{{ sourceOwnership().sharePercentage }}%</p>
+          <p class="text-xs text-body text-center mt-1">After: <span class="text-on-dark font-semibold">{{ retainedPercentage() }}%</span></p>
+        </div>
+
+        <div class="shrink-0">
+          <svg class="size-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </div>
+
+        <div class="flex-1 rounded-xl border border-hairline bg-surface-card p-4">
+          <div class="size-14 rounded-full bg-accent-blue/20 flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold text-accent-blue">{{ targetUser().firstName.charAt(0) }}{{ targetUser().lastName.charAt(0) }}</span>
+          </div>
+          <p class="text-sm font-bold text-on-dark text-center truncate">{{ targetUser().firstName }} {{ targetUser().lastName }}</p>
+          <p class="text-xs text-body text-center">{{ targetUser().email }}</p>
+          <p class="text-xs text-accent-blue text-center mt-1">New owner</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs text-muted mb-1.5">Transfer amount (%)</label>
+          <input
+            type="number"
+            [(ngModel)]="percentage"
+            min="1"
+            [max]="sourceOwnership().sharePercentage - 1"
+            class="w-full h-10 rounded-lg bg-surface-card text-on-dark border border-hairline px-3.5 py-2.5 text-sm outline-none focus:border-primary"
+          />
+          <p class="text-xs text-muted mt-1">Max: {{ sourceOwnership().sharePercentage - 1 }}%</p>
+        </div>
+        <div>
+          <label class="block text-xs text-muted mb-1.5">Ownership type</label>
+          <select
+            [(ngModel)]="ownerShipType"
+            class="w-full h-10 rounded-lg bg-surface-card text-on-dark border border-hairline px-3.5 py-2.5 text-sm outline-none focus:border-primary"
+          >
+            <option value="SoleOwner">Sole Owner</option>
+            <option value="CoOwner">Co-Owner</option>
+            <option value="InvestorOwner">Investor Owner</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-muted mb-1.5">Effective date</label>
+          <input
+            type="date"
+            [(ngModel)]="effectiveStart"
+            class="w-full h-10 rounded-lg bg-surface-card text-on-dark border border-hairline px-3.5 py-2.5 text-sm outline-none focus:border-primary"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-hairline flex justify-end gap-3">
+      <button type="button" (click)="close.emit()" class="h-10 px-4 rounded-lg bg-surface-card text-on-dark text-sm font-semibold border border-hairline hover:bg-surface-elevated cursor-pointer">
+        Cancel
+      </button>
+      <button type="button" (click)="submit()" [disabled]="!canSubmit || isSubmitting()" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:bg-primary-active disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer">
+        @if (isSubmitting()) { Transferring... } @else { Confirm Transfer }
+      </button>
+    </div>
+  </div>
+</div>

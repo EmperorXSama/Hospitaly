@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Hospitaly.Bff")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+596b2f0bdb4aebc15ff19fa9af36eeacb79695b3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+380beff5d12c267f5406be35febf6fccebf4e50a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hospitaly.Bff")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hospitaly.Bff")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

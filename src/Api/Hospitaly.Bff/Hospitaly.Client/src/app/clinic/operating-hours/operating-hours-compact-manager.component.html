@@ -1,0 +1,20 @@
+<section class="rounded-xl border border-hairline bg-surface-card p-4 space-y-3">
+  <div>
+    <h2 class="text-base font-semibold text-on-dark">Weekly Operating Hours</h2>
+    <p class="text-xs text-muted mt-1">Compact manager for weekly opening and resting ranges.</p>
+  </div>
+
+  <div class="space-y-2">
+    @for (dayForm of daysFormArray.controls; track dayForm.get('day')?.value; let index = $index) {
+      <app-operating-hours-day-accordion
+        [dayForm]="dayForm"
+        [expanded]="expandedIndex === index"
+        (toggled)="toggleDay.emit(index)"
+        (addResting)="addResting.emit(index)"
+        (removeResting)="removeResting.emit(index)"
+        (copyToAll)="copyToAll.emit(index)"
+        (copyToWeekdays)="copyToWeekdays.emit(index)"
+      />
+    }
+  </div>
+</section>

@@ -28,6 +28,7 @@
     <Project Path="src/Modules/Users/Hospitaly.Modules.Users.Domain/Hospitaly.Modules.Users.Domain.csproj" />
     <Project Path="src/Modules/Users/Hospitaly.Modules.Users.Infrastructure/Hospitaly.Modules.Users.Infrastructure.csproj" />
     <Project Path="src/Modules/Users/Hospitaly.Modules.Users.Presentation/Hospitaly.Modules.Users.Presentation.csproj" />
+    <Project Path="src/Modules/Users/PublicApi/PublicApi.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/ArchitectureTests/ArchitectureTests.csproj" />

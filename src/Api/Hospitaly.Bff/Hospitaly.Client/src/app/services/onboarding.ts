@@ -21,11 +21,11 @@ export class OnboardingService {
   private readonly apiService = inject(ApiService);
 
   createDoctor(): Observable<string> {
-    return this.apiService.post<string>('/api/doctors', {});
+    return this.apiService.post<string>('https://localhost:7214/api/doctors', {});
   }
 
   createClinic(request: CreateClinicRequest): Observable<string> {
-    return this.apiService.post<string>('/api/clinics', request);
+    return this.apiService.post<string>('https://localhost:7214/api/clinics', request);
   }
 
   completeOnboarding(): Observable<void> {

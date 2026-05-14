@@ -50,3 +50,5 @@ C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Cli
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Infrastructure\obj\Debug\net10.0\Hospitaly.Modules.Clinic.Infrastructure.pdb
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Infrastructure\obj\Debug\net10.0\ref\Hospitaly.Modules.Clinic.Infrastructure.dll
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Infrastructure\obj\Debug\net10.0\Hospitaly.Modules.Clinic.Infrastructure.sourcelink.json
+C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Infrastructure\bin\Debug\net10.0\PublicApi.dll
+C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Infrastructure\bin\Debug\net10.0\PublicApi.pdb

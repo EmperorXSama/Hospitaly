@@ -33,6 +33,36 @@ export const routes: Routes = [
         path: 'profile',
         loadComponent: () => import('./profile/profile-page').then((m) => m.ProfilePage),
       },
+      {
+        path: 'clinics',
+        canActivate: [authGuard],
+        data: { permission: 'clinics:read' },
+        loadComponent: () => import('./clinic/clinics/clinics-page').then((m) => m.ClinicsPage),
+      },
+      {
+        path: 'clinics/:clinicId/schedule',
+        canActivate: [authGuard],
+        data: { permission: 'clinics:update' },
+        loadComponent: () =>
+          import('./clinic/operating-hours/clinic-operating-hours-page').then((m) => m.ClinicOperatingHoursSchedulingPageComponent),
+      },
+      {
+        path: 'clinics/:clinicId/ownership',
+        canActivate: [authGuard],
+        data: { permission: 'clinics:read' },
+        loadComponent: () =>
+          import('./clinic/ownership/clinic-ownership-page').then((m) => m.ClinicOwnershipPage),
+      },
+      {
+        path: 'clinic/scheduling',
+        redirectTo: 'clinics',
+        pathMatch: 'full',
+      },
+      {
+        path: 'clinic/operating-hours',
+        redirectTo: 'clinics',
+        pathMatch: 'full',
+      },
     ],
   },
   { path: '**', redirectTo: '' },

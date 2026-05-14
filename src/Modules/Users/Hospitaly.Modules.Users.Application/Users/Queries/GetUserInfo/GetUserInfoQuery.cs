@@ -2,4 +2,4 @@
 
 namespace Hospitaly.Modules.Users.Application.Users.Queries.GetUserInfo;
 
-public sealed record GetUserInfoQuery(Guid UserId): IQuery<UserResponse>;
+public sealed record GetUserInfoQuery(string UserIdentity): IQuery<UserResponse>;

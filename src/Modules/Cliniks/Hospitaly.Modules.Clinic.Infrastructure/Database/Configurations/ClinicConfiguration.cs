@@ -16,7 +16,6 @@ public class ClinicConfiguration : IEntityTypeConfiguration<ClinicEntity>
 
         builder.Ignore(c => c.Specialties);
         builder.Ignore(c => c.Departments);
-        builder.Ignore(c => c.Ownerships);
 
         builder.OwnsOne(c => c.Info, info =>
         {
@@ -72,14 +71,10 @@ public class ClinicConfiguration : IEntityTypeConfiguration<ClinicEntity>
                 .HasMaxLength(20)
                 .IsRequired();
 
-            // One schedule row per clinic per day
             hours.HasKey("ClinicId", nameof(OperatingHours.Day));
 
-            hours.Property(h => h.IsResting)
-                .HasColumnName("IsResting")
-                .IsRequired();
-
             hours.Ignore(h => h.IsOffDay);
+            hours.Ignore(h => h.HasRestingTime);
 
             hours.OwnsOne(h => h.Hours, opHours =>
             {
@@ -90,26 +85,62 @@ public class ClinicConfiguration : IEntityTypeConfiguration<ClinicEntity>
                 {
                     range.Property(r => r.Start)
                         .HasColumnName("OpenTime")
-                        .HasColumnType("timestamp with time zone")
-                        .IsRequired();
+                        .HasColumnType("timestamp with time zone");
 
                     range.Property(r => r.End)
                         .HasColumnName("CloseTime")
                         .HasColumnType("timestamp with time zone");
                 });
             });
-        });
 
+            hours.OwnsOne(h => h.RestingTime, resting =>
+            {
+                resting.Property<bool>("_isActive")
+                    .HasColumnName("RestingTimeActive");
+
+                resting.OwnsOne(o => o.Value, range =>
+                {
+                    range.Property(r => r.Start)
+                        .HasColumnName("RestingStartTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    range.Property(r => r.End)
+                        .HasColumnName("RestingEndTime")
+                        .HasColumnType("timestamp with time zone");
+                });
+            });
+        });
+        builder.OwnsOne(c => c.Audit, audit =>
+        {
+            audit.Property(a => a.CreatedBy)
+                .HasColumnName("CreatedBy")
+                .IsRequired();
+            audit.Property(a => a.CreatedOnUtc)
+                .HasColumnName("CreatedOnUtc")
+                .HasColumnType("timestamp with time zone")
+                .IsRequired();
+            audit.Property(a => a.UpdatedBy)
+                .HasColumnName("UpdatedBy");
+            audit.Property(a => a.UpdatedOnUtc)
+                .HasColumnName("UpdatedOnUtc")
+                .HasColumnType("timestamp with time zone");
+        });
         builder.HasOne(c => c.OperatingLicense)
             .WithOne()
             .HasForeignKey<OperatingLicense>("ClinicId")
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany<ClinicOwnerShip>("_ownerships")
+        builder.HasMany(c => c.Ownerships)
             .WithOne()
             .HasForeignKey("ClinicId")
+            .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.Navigation(c => c.Ownerships)
+            .HasField("_ownerships");
+
+        builder.Navigation(c => c.Ownerships)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
         builder.HasMany<Department>("_departments")
             .WithOne(d => d.Clinic)
             .HasForeignKey("ClinicId")
