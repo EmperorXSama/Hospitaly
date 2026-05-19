@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Hospitaly.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+380beff5d12c267f5406be35febf6fccebf4e50a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d362d332a2948f95eb648c4060a4481f43624e14")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hospitaly.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hospitaly.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
