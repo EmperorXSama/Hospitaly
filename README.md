@@ -112,11 +112,6 @@ User action in SPA
   → Domain layer enforces invariants
   → Infrastructure persists or reads data
   → Response returns through the chain to SPA
-```
-
-> ![Request Flow](docs/images/request-flow-placeholder.png)
->
-> *Replace this placeholder with a real request flow diagram.*
 
 ---
 
@@ -280,12 +275,6 @@ GET    /bff/sessions                → List active sessions
 DELETE /bff/sessions/{sessionId}    → Revoke specific session
 DELETE /bff/sessions                → Revoke all sessions
 api/{**catch-all}                   → YARP proxy to backend
-```
-
-> ![BFF Flow](docs/images/bff-flow-placeholder.png)
->
-> *Replace this placeholder with a real BFF flow diagram.*
-
 ---
 
 ## Frontend SPA
@@ -525,7 +514,7 @@ This project demonstrates:
 
 | Page | Preview                                        |
 |---|------------------------------------------------|
-| Landing Page | ![Landing Page](docs/images/landingPage.png)   |
+| Landing Page | ![Landing Page](docs/images/LandingPage.png)   |
 | Login (Keycloak) | ![Login](docs/images/Login.png)                |
 | Dashboard | ![Dashboard](docs/images/Dashboard.png)        |
 | Clinic Management | ![Clinic Management](docs/images/Clinics.png)  |
