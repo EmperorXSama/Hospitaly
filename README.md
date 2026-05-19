@@ -95,10 +95,6 @@ This is a **portfolio / CV project** designed to demonstrate:
 └─────────────────────────┘  └──────────────────────────────┘
 ```
 
-> ![Architecture Diagram](docs/images/architecture-placeholder.png)
->
-> *Replace this placeholder with a real architecture diagram.*
-
 ### Request Flow
 
 ```
@@ -527,15 +523,15 @@ This project demonstrates:
 
 ## Screenshots
 
-| Page | Preview |
-|---|---|
-| Landing Page | ![Landing Page](docs/images/ui-landing-placeholder.png) |
-| Login (Keycloak) | ![Login](docs/images/ui-login-placeholder.png) |
-| Dashboard | ![Dashboard](docs/images/ui-dashboard-placeholder.png) |
-| Clinic Management | ![Clinic Management](docs/images/ui-clinic-management-placeholder.png) |
-| Operating Hours Editor | ![Operating Hours](docs/images/ui-operating-hours-placeholder.png) |
-| Ownership Management | ![Ownership](docs/images/ui-ownership-placeholder.png) |
-| User Profile | ![Profile](docs/images/ui-profile-placeholder.png) |
+| Page | Preview                                        |
+|---|------------------------------------------------|
+| Landing Page | ![Landing Page](docs/images/landingPage.png)   |
+| Login (Keycloak) | ![Login](docs/images/Login.png)                |
+| Dashboard | ![Dashboard](docs/images/Dashboard.png)        |
+| Clinic Management | ![Clinic Management](docs/images/Clinics.png)  |
+| Operating Hours Editor | ![Operating Hours](docs/images/Scheduling.png) |
+| Ownership Management | ![Ownership](docs/images/OwnerShip.png)        |
+| User Profile | ![Profile](docs/images/Profile.png)            |
 
 > Replace these placeholders with actual screenshots from the running application.
 
@@ -570,25 +566,6 @@ This project is **not just another CRUD application**. It was built with the del
 - **Scalable by design** — Adding a new module follows the same well-defined pattern: Domain → Application → Infrastructure → Presentation. The common libraries provide reusable building blocks (CQRS, validation, API responses, DB connections) that every module uses.
 
 - **Practical use of the modern .NET ecosystem** — .NET 10, EF Core 10, Dapper, MediatR, FluentValidation, YARP, OpenID Connect, Docker, and PostgreSQL — all working together in a cohesive system.
-
----
-
-## Recommended Image Files to Add
-
-Replace the following placeholder images under `docs/images/` with real screenshots or diagrams:
-
-| File | Description |
-|---|---|
-| `docs/images/architecture-placeholder.png` | High-level system architecture diagram |
-| `docs/images/request-flow-placeholder.png` | End-to-end request flow diagram |
-| `docs/images/bff-flow-placeholder.png` | BFF authentication and proxying flow |
-| `docs/images/ui-landing-placeholder.png` | SPA landing page screenshot |
-| `docs/images/ui-login-placeholder.png` | Keycloak login page screenshot |
-| `docs/images/ui-dashboard-placeholder.png` | Dashboard home page screenshot |
-| `docs/images/ui-clinic-management-placeholder.png` | Clinic list / management page screenshot |
-| `docs/images/ui-operating-hours-placeholder.png` | Weekly operating hours editor screenshot |
-| `docs/images/ui-ownership-placeholder.png` | Clinic ownership management page screenshot |
-| `docs/images/ui-profile-placeholder.png` | User profile page screenshot |
 
 ---
 
