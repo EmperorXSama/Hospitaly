@@ -15,6 +15,7 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
 
         builder.HasData(
             Permission.BrowseClinic,
+            Permission.TransferClinicOwnership,
             Permission.GetUser,
             Permission.ModifyUser
         );
@@ -26,7 +27,8 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
                 joinBuilder.ToTable("RolePermissions");
 
                 joinBuilder.HasData(
-                    CreateRolePermission(Role.Member , Permission.BrowseClinic),
+                    CreateRolePermission(Role.Member, Permission.BrowseClinic),
+                    CreateRolePermission(Role.HospitalAdministrator, Permission.TransferClinicOwnership),
                     CreateRolePermission(Role.Administrator, Permission.GetUser),
                     CreateRolePermission(Role.Administrator, Permission.ModifyUser)
                 );

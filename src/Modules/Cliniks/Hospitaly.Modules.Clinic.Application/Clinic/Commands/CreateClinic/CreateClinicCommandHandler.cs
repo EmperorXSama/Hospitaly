@@ -6,14 +6,20 @@ using Hospitaly.Modules.Clinic.Domain.Clinic;
 using Hospitaly.Modules.Clinic.Domain.Clinic.Entities;
 using Hospitaly.Modules.Clinic.Domain.Clinic.Enum;
 using Hospitaly.Modules.Clinic.Domain.Clinic.ValueObjects;
+using PublicApi;
 using ClinicDomain = Hospitaly.Modules.Clinic.Domain.Clinic.Clinic;
 
 namespace Hospitaly.Modules.Clinic.Application.Clinic.Commands.CreateClinic;
 
 internal sealed class CreateClinicCommandHandler(
     IClinicRepository clinicRepository,
+    IUserApi userApi,
     IUnitOfWork unitOfWork) : ICommandHandler<CreateClinicCommand, Guid>
 {
+    /*
+     * todo :
+     * - add trading name + logo ur when implementing file support 
+     */
     public async Task<ErrorOr<Guid>> Handle(CreateClinicCommand request, CancellationToken cancellationToken)
     {
         var audit = new AuditInfo(request.UserId, DateTime.UtcNow);
@@ -41,16 +47,13 @@ internal sealed class CreateClinicCommandHandler(
             validityResult.Value,
             LicenceAdministrativeStatus.Active);
         if (licenseResult.IsError) return licenseResult.Errors;
-
-        var monday = OperatingHours.Create(DayOfWeek.Monday, false, TimeSpan.FromHours(9), TimeSpan.FromHours(17));
-        if (monday.IsError) return monday.Errors;
+        
 
         var clinicResult = ClinicDomain.Create(
             infoResult.Value,
             addressResult.Value,
             licenseResult.Value,
             contactResult.Value,
-            monday.Value,
             audit);
         if (clinicResult.IsError) return clinicResult.Errors;
 
@@ -72,8 +75,15 @@ internal sealed class CreateClinicCommandHandler(
         clinic.ReAllocateOwnership([ownershipResult.Value], request.UserId, DateTimeOffset.UtcNow);
 
         clinicRepository.Insert(clinic);
+        await userApi.AddClinicOwnerRole(request.UserId.ToString(), cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return clinic.Id;
     }
+    
+    /*
+     *note : currently we add a role to a user when creating a clinic which is not good :/ , business wise we should create a clinic with pending status
+     * then verify it as admins and on verify command  we can assign the role to the user and activate the clinic but for now we will keep it simple and assign the role directly when creating the clinic
+     * 
+     */
 }

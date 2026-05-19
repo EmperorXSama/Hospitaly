@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { ApiResponse } from '../models/api-response';
+import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
 
 export interface CreateClinicRequest {
   name: string;
@@ -17,19 +17,15 @@ export interface CreateClinicRequest {
 
 @Injectable({ providedIn: 'root' })
 export class OnboardingService {
-
-  constructor(private readonly http: HttpClient) {}
+  private readonly http = inject(HttpClient);
+  private readonly apiService = inject(ApiService);
 
   createDoctor(): Observable<string> {
-    return this.http
-      .post<ApiResponse<string>>(`https://localhost:7214/api/doctors`, {})
-      .pipe(map((r) => r.data));
+    return this.apiService.post<string>('https://localhost:7214/api/doctors', {});
   }
 
   createClinic(request: CreateClinicRequest): Observable<string> {
-    return this.http
-      .post<ApiResponse<string>>(`https://localhost:7214/api/clinics`, request)
-      .pipe(map((r) => r.data));
+    return this.apiService.post<string>('https://localhost:7214/api/clinics', request);
   }
 
   completeOnboarding(): Observable<void> {

@@ -1,7 +1,10 @@
-﻿using Hospitaly.Modules.Clinic.Application.Abstractions.Data;
+﻿using Hospitaly.Common.Infrastructure.Seeder;
+using Hospitaly.Modules.Clinic.Application.Abstractions.Data;
 using Hospitaly.Modules.Clinic.Domain.Clinic;
 using Hospitaly.Modules.Clinic.Domain.Doctor;
+using Hospitaly.Modules.Clinic.Domain.Specialty;
 using Hospitaly.Modules.Clinic.Infrastructure.Database;
+using Hospitaly.Modules.Clinic.Infrastructure.Database.Seeders;
 using Hospitaly.Modules.Clinic.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -15,9 +18,11 @@ public static class ClinicModule
     public static IServiceCollection AddClinicModule(this IServiceCollection services , IConfiguration configuration)
     {
         services.AddClinicDbContext(configuration);
+        services.AddSeeders();
         services.AddScoped<IDoctorRepository, DoctorRepository>();
         services.AddScoped<IClinicRepository, ClinicRepository>();
-
+        services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
+        
         return services;
     }
 
@@ -32,5 +37,10 @@ public static class ClinicModule
         });
         
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ClinikDbContext>());
+    }
+
+    private static void AddSeeders(this IServiceCollection services)
+    {
+        services.AddScoped<ISeeder, SpecialtySeeder>();
     }
 }

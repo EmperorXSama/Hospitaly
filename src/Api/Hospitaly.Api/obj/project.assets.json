@@ -1201,7 +1201,8 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Hospitaly.Common.Application": "1.0.0",
-          "Hospitaly.Modules.Clinic.Domain": "1.0.0"
+          "Hospitaly.Modules.Clinic.Domain": "1.0.0",
+          "PublicApi": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Hospitaly.Modules.Clinic.Application.dll": {}
@@ -1286,9 +1287,9 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Hospitaly.Common.Infrastructure": "1.0.0",
-          "Hospitaly.Modules.Clinic.Infrastructure": "1.0.0",
           "Hospitaly.Modules.Users.Application": "1.0.0",
-          "Hospitaly.Modules.Users.Presentation": "1.0.0"
+          "Hospitaly.Modules.Users.Presentation": "1.0.0",
+          "PublicApi": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Hospitaly.Modules.Users.Infrastructure.dll": {}
@@ -1310,6 +1311,16 @@
         },
         "runtime": {
           "bin/placeholder/Hospitaly.Modules.Users.Presentation.dll": {}
+        }
+      },
+      "PublicApi/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/PublicApi.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PublicApi.dll": {}
         }
       }
     }
@@ -3632,6 +3643,11 @@
       "type": "project",
       "path": "../../Modules/Users/Hospitaly.Modules.Users.Presentation/Hospitaly.Modules.Users.Presentation.csproj",
       "msbuildProject": "../../Modules/Users/Hospitaly.Modules.Users.Presentation/Hospitaly.Modules.Users.Presentation.csproj"
+    },
+    "PublicApi/1.0.0": {
+      "type": "project",
+      "path": "../../Modules/Users/PublicApi/PublicApi.csproj",
+      "msbuildProject": "../../Modules/Users/PublicApi/PublicApi.csproj"
     }
   },
   "projectFileDependencyGroups": {

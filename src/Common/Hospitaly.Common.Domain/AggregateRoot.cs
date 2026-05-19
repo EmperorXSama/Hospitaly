@@ -6,7 +6,7 @@ public class AggregateRoot : Entity
 
     public IReadOnlyList<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    protected AggregateRoot(AuditInfo audit) : base(audit) { }
+    protected AggregateRoot(AuditInfo audit, Guid id) : base(audit,id) { }
 
     protected AggregateRoot(){}
 

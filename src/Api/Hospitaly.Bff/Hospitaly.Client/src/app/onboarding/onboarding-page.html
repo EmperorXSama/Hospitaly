@@ -117,21 +117,37 @@
                 />
               </label>
               <label class="flex flex-col gap-1.5">
-                <span class="text-body-strong text-sm font-medium">City <span class="text-error">*</span></span>
-                <input
-                  type="text"
-                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
-                  [(ngModel)]="clinicCity"
-                  required
-                />
-              </label>
-              <label class="flex flex-col gap-1.5">
-                <span class="text-body-strong text-sm font-medium">Region</span>
-                <input
-                  type="text"
+                <span class="text-body-strong text-sm font-medium">Region <span class="text-error">*</span></span>
+                <select
+                  name="region"
                   class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
                   [(ngModel)]="clinicRegion"
-                />
+                  required
+                  #regionCtrl="ngModel"
+                >
+                  <option value="" disabled class="text-muted">Select a region</option>
+                  @for (region of REGIONS; track region) {
+                    <option [value]="region">{{ region }}</option>
+                  }
+                </select>
+              </label>
+              <label class="flex flex-col gap-1.5">
+                <span class="text-body-strong text-sm font-medium">City <span class="text-error">*</span></span>
+                <select
+                  name="city"
+                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full disabled:text-muted disabled:cursor-not-allowed"
+                  [(ngModel)]="clinicCity"
+                  [disabled]="!clinicRegion()"
+                  required
+                  #cityCtrl="ngModel"
+                >
+                  <option value="" disabled class="text-muted">
+                    {{ clinicRegion() ? 'Select a city' : 'Select a region first' }}
+                  </option>
+                  @for (city of availableCities(); track city) {
+                    <option [value]="city">{{ city }}</option>
+                  }
+                </select>
               </label>
               <label class="flex flex-col gap-1.5">
                 <span class="text-body-strong text-sm font-medium">Postal Code</span>
@@ -145,9 +161,9 @@
                 <span class="text-body-strong text-sm font-medium">Country <span class="text-error">*</span></span>
                 <input
                   type="text"
-                  class="bg-surface-card text-on-dark rounded-lg px-3.5 py-2.5 h-10 border border-hairline outline-none transition-colors focus:border-primary w-full"
-                  [(ngModel)]="clinicCountry"
-                  required
+                  class="bg-surface-card text-muted rounded-lg px-3.5 py-2.5 h-10 border border-hairline w-full cursor-not-allowed"
+                  [value]="COUNTRY"
+                  disabled
                 />
               </label>
               <label class="flex flex-col gap-1.5">

@@ -1,0 +1,60 @@
+<div class="rounded-xl border border-hairline bg-surface-soft p-4 space-y-4" [formGroup]="dayForm()">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <h3 class="text-base font-semibold text-on-dark">{{ dayForm().get('day')?.value }}</h3>
+      <span class="rounded-full border px-2.5 py-1 text-xs font-medium" [class]="statusClasses()">
+        {{ statusLabel() }}
+      </span>
+    </div>
+
+    <button
+      type="button"
+      class="text-xs text-primary hover:text-primary-active disabled:text-muted cursor-pointer disabled:cursor-not-allowed"
+      [disabled]="!canCopy()"
+    >
+      Copy to all
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-[auto_1fr_1fr_auto] gap-3 items-end">
+    <label class="inline-flex items-center gap-2 text-sm text-body">
+      <input type="checkbox" formControlName="isClosed" class="h-4 w-4 accent-primary" />
+      Closed
+    </label>
+
+    <label class="space-y-1 text-sm text-body">
+      <span class="block">Open time</span>
+      <input
+        type="time"
+        formControlName="openTime"
+        class="w-full bg-surface-card border border-hairline rounded-md px-3 py-2 text-on-dark focus:outline-none focus:border-primary disabled:text-muted disabled:bg-canvas"
+      />
+    </label>
+
+    <label class="space-y-1 text-sm text-body">
+      <span class="block">Close time</span>
+      <input
+        type="time"
+        formControlName="closeTime"
+        class="w-full bg-surface-card border border-hairline rounded-md px-3 py-2 text-on-dark focus:outline-none focus:border-primary disabled:text-muted disabled:bg-canvas"
+      />
+    </label>
+
+    <label class="inline-flex items-center gap-2 text-sm text-body">
+      <input type="checkbox" formControlName="isResting" class="h-4 w-4 accent-warning" />
+      Resting
+    </label>
+  </div>
+
+  @if (dayForm().errors?.['missingTimes']) {
+    <p class="text-xs text-error">Open and close times are required when the day is open.</p>
+  }
+
+  @if (dayForm().errors?.['closeBeforeOpen']) {
+    <p class="text-xs text-error">Close time must be after open time.</p>
+  }
+
+  @if (dayForm().errors?.['restingWhileClosed']) {
+    <p class="text-xs text-error">Resting can only be enabled for open days.</p>
+  }
+</div>

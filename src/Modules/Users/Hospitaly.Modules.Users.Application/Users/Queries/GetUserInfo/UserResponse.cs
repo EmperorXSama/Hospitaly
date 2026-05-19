@@ -1,12 +1,15 @@
 namespace Hospitaly.Modules.Users.Application.Users.Queries.GetUserInfo;
 
-public record UserResponse(
-    Guid UserId,
-    string Email,
-    string FirstName,
-    string LastName,
-    string IdentityId,
-    string Sex,
-    DateOnly DateOfBirth,
-    string? BloodType,
-    DateTimeOffset CreatedOnUtc);
+public sealed class UserResponse
+{
+    public Guid UserId { get; init; }
+    public string Email { get; init; } = string.Empty;
+    public string FirstName { get; init; } = string.Empty;
+    public string LastName { get; init; } = string.Empty;
+    public string IdentityId { get; init; } = string.Empty;
+    public string Sex { get; init; } = string.Empty;
+    public DateOnly DateOfBirth { get; init; }
+    public string? BloodType { get; init; }
+    public DateTimeOffset CreatedOnUtc { get; init; }
+    public bool RequiresOnboarding { get; init; }
+}

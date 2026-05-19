@@ -13,6 +13,11 @@ public class DoctorConfiguration : IEntityTypeConfiguration<DoctorEntity>
 
         builder.HasKey(d => d.Id);
 
+        builder.Property(d => d.Status)
+            .HasConversion<string>()
+            .HasMaxLength(20)
+            .IsRequired();
+
         builder.Ignore(d => d.Credentials);
         builder.Ignore(d => d.Specialties);
         builder.Ignore(d => d.Affiliations);
@@ -31,5 +36,13 @@ public class DoctorConfiguration : IEntityTypeConfiguration<DoctorEntity>
             .WithOne(ca => ca.Doctor)
             .HasForeignKey(ca => ca.DoctorId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.OwnsOne(d => d.Audit, audit =>
+        {
+            audit.Property(a => a.CreatedBy).HasColumnName("CreatedBy").IsRequired();
+            audit.Property(a => a.CreatedOnUtc).HasColumnName("CreatedOnUtc").HasColumnType("timestamp with time zone").IsRequired();
+            audit.Property(a => a.UpdatedBy).HasColumnName("UpdatedBy");
+            audit.Property(a => a.UpdatedOnUtc).HasColumnName("UpdatedOnUtc").HasColumnType("timestamp with time zone");
+        });
     }
 }

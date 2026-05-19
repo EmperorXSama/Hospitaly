@@ -24,7 +24,7 @@ public class DoctorCredential : Entity
     }
 
     // Required by base Entity class
-    private DoctorCredential(AuditInfo audit) : base(audit)
+    private DoctorCredential(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 
@@ -35,7 +35,7 @@ public class DoctorCredential : Entity
         string documentNumber,
         CredentialValidityPeriod validityPeriod,
         CredentialStatus status,
-        AuditInfo audit) : base(audit)
+        AuditInfo audit) : base(audit,Guid.NewGuid())
     {
         DoctorId = doctorId;
         CredentialType = credentialType;

@@ -1,0 +1,56 @@
+<div class="p-6 lg:p-8 space-y-6">
+  <header class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+    <div>
+      <p class="text-xs uppercase tracking-[1.4px] text-muted">Clinic / Operating Hours</p>
+      <h1 class="text-[30px] font-bold leading-tight tracking-[-0.8px] text-on-dark mt-1">Operating Hours & Scheduling</h1>
+      <p class="text-body mt-2">Manage weekly clinic availability and prepare scheduling rules.</p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button type="button" (click)="resetChanges()" [disabled]="!hasUnsavedChanges() || isSaving() || !hasSchedule()" class="h-10 rounded-md border border-hairline px-4 text-sm font-semibold text-on-dark hover:bg-surface-elevated disabled:text-muted disabled:cursor-not-allowed cursor-pointer">Reset Changes</button>
+      <button type="button" (click)="saveChanges()" [disabled]="isSaving() || hasValidationErrors() || !hasUnsavedChanges() || !hasSchedule()" class="h-10 rounded-md bg-primary px-4 text-sm font-semibold text-on-primary hover:bg-primary-active disabled:bg-primary-disabled disabled:text-muted disabled:cursor-not-allowed cursor-pointer">{{ isSaving() ? 'Saving...' : 'Save Changes' }}</button>
+    </div>
+  </header>
+
+  @if (saveError()) { <p class="rounded-md border border-error/40 bg-error/10 px-3 py-2 text-sm text-error">{{ saveError() }}</p> }
+  @if (hasUnsavedChanges()) { <p class="rounded-md border border-warning/40 bg-warning/10 px-3 py-2 text-sm text-warning">You have unsaved changes.</p> }
+
+  @if (isLoading()) {
+    <div class="rounded-xl border border-hairline bg-surface-card p-5 text-body">Loading scheduling data...</div>
+  } @else {
+    <div class="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6 items-start">
+      <app-scheduling-workspace-placeholder />
+
+      <div class="space-y-4">
+        @if (!hasSchedule()) {
+          <section class="rounded-xl border border-hairline bg-surface-card p-5 space-y-3">
+            <h2 class="text-base font-semibold text-on-dark">No weekly schedule yet</h2>
+            <p class="text-sm text-body">Create a default weekly schedule, then adjust it before saving.</p>
+            <button type="button" (click)="createWeeklySchedule()" class="h-10 rounded-md bg-primary px-4 text-sm font-semibold text-on-primary hover:bg-primary-active cursor-pointer">Create weekly schedule</button>
+          </section>
+        } @else {
+          <app-operating-hours-compact-manager
+            [daysFormArray]="days"
+            [expandedIndex]="expandedIndex()"
+            (toggleDay)="toggleDay($event)"
+            (addResting)="addResting($event)"
+            (removeResting)="removeResting($event)"
+            (copyToAll)="copyDayToAll($event)"
+            (copyToWeekdays)="copyDayToWeekdays($event)"
+          />
+
+          <app-operating-hours-summary
+            [openDays]="openDays()"
+            [closedDays]="closedDays()"
+            [restingDays]="restingDays()"
+            [earliestOpening]="earliestOpening()"
+            [latestClosing]="latestClosing()"
+            [todayStatus]="todayStatus()"
+          />
+        }
+
+        <app-scheduling-future-rules />
+      </div>
+    </div>
+  }
+</div>

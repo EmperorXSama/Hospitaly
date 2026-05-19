@@ -68,10 +68,9 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
             modelBuilder.Entity("Hospitaly.Modules.Clinic.Domain.Clinic.Entities.ClinicOwnerShip", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ClinicId")
+                    b.Property<Guid>("ClinicId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("OwnerId")
@@ -231,6 +230,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -480,16 +493,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("AppointmentId");
 
@@ -695,16 +712,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("ClinicId");
 
@@ -878,22 +899,19 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasForeignKey("ClinicId");
                         });
 
-                    b.OwnsOne("Hospitaly.Modules.Clinic.Domain.Clinic.ValueObjects.OperatingHours", "OperatingHours", b1 =>
+                    b.OwnsMany("Hospitaly.Modules.Clinic.Domain.Clinic.ValueObjects.OperatingHours", "OperatingHours", b1 =>
                         {
                             b1.Property<Guid>("ClinicId")
                                 .HasColumnType("uuid");
 
                             b1.Property<string>("Day")
-                                .IsRequired()
                                 .HasMaxLength(20)
-                                .HasColumnType("character varying(20)");
+                                .HasColumnType("character varying(20)")
+                                .HasColumnName("Day");
 
-                            b1.Property<bool>("IsResting")
-                                .HasColumnType("boolean");
+                            b1.HasKey("ClinicId", "Day");
 
-                            b1.HasKey("ClinicId");
-
-                            b1.ToTable("Clinics", "clinics");
+                            b1.ToTable("ClinicOperatingHours", "clinics");
 
                             b1.WithOwner()
                                 .HasForeignKey("ClinicId");
@@ -903,34 +921,89 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                     b2.Property<Guid>("OperatingHoursClinicId")
                                         .HasColumnType("uuid");
 
+                                    b2.Property<string>("OperatingHoursDay")
+                                        .HasColumnType("character varying(20)");
+
                                     b2.Property<bool>("_isActive")
                                         .HasColumnType("boolean")
-                                        .HasColumnName("hours_active");
+                                        .HasColumnName("HoursActive");
 
-                                    b2.HasKey("OperatingHoursClinicId");
+                                    b2.HasKey("OperatingHoursClinicId", "OperatingHoursDay");
 
-                                    b2.ToTable("Clinics", "clinics");
+                                    b2.ToTable("ClinicOperatingHours", "clinics");
 
                                     b2.WithOwner()
-                                        .HasForeignKey("OperatingHoursClinicId");
+                                        .HasForeignKey("OperatingHoursClinicId", "OperatingHoursDay");
 
                                     b2.OwnsOne("Hospitaly.Common.Domain.Common.ValueObjects.DateTimeRange", "Value", b3 =>
                                         {
                                             b3.Property<Guid>("OperatingTimeRangeOperatingHoursClinicId")
                                                 .HasColumnType("uuid");
 
+                                            b3.Property<string>("OperatingTimeRangeOperatingHoursDay")
+                                                .HasColumnType("character varying(20)");
+
                                             b3.Property<DateTimeOffset?>("End")
-                                                .HasColumnType("timestamp with time zone");
+                                                .HasColumnType("timestamp with time zone")
+                                                .HasColumnName("CloseTime");
 
                                             b3.Property<DateTimeOffset>("Start")
-                                                .HasColumnType("timestamp with time zone");
+                                                .HasColumnType("timestamp with time zone")
+                                                .HasColumnName("OpenTime");
 
-                                            b3.HasKey("OperatingTimeRangeOperatingHoursClinicId");
+                                            b3.HasKey("OperatingTimeRangeOperatingHoursClinicId", "OperatingTimeRangeOperatingHoursDay");
 
-                                            b3.ToTable("Clinics", "clinics");
+                                            b3.ToTable("ClinicOperatingHours", "clinics");
 
                                             b3.WithOwner()
-                                                .HasForeignKey("OperatingTimeRangeOperatingHoursClinicId");
+                                                .HasForeignKey("OperatingTimeRangeOperatingHoursClinicId", "OperatingTimeRangeOperatingHoursDay");
+                                        });
+
+                                    b2.Navigation("Value")
+                                        .IsRequired();
+                                });
+
+                            b1.OwnsOne("Hospitaly.Modules.Clinic.Domain.Clinic.ValueObjects.OperatingTimeRange", "RestingTime", b2 =>
+                                {
+                                    b2.Property<Guid>("OperatingHoursClinicId")
+                                        .HasColumnType("uuid");
+
+                                    b2.Property<string>("OperatingHoursDay")
+                                        .HasColumnType("character varying(20)");
+
+                                    b2.Property<bool>("_isActive")
+                                        .HasColumnType("boolean")
+                                        .HasColumnName("RestingTimeActive");
+
+                                    b2.HasKey("OperatingHoursClinicId", "OperatingHoursDay");
+
+                                    b2.ToTable("ClinicOperatingHours", "clinics");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("OperatingHoursClinicId", "OperatingHoursDay");
+
+                                    b2.OwnsOne("Hospitaly.Common.Domain.Common.ValueObjects.DateTimeRange", "Value", b3 =>
+                                        {
+                                            b3.Property<Guid>("OperatingTimeRangeOperatingHoursClinicId")
+                                                .HasColumnType("uuid");
+
+                                            b3.Property<string>("OperatingTimeRangeOperatingHoursDay")
+                                                .HasColumnType("character varying(20)");
+
+                                            b3.Property<DateTimeOffset?>("End")
+                                                .HasColumnType("timestamp with time zone")
+                                                .HasColumnName("RestingEndTime");
+
+                                            b3.Property<DateTimeOffset>("Start")
+                                                .HasColumnType("timestamp with time zone")
+                                                .HasColumnName("RestingStartTime");
+
+                                            b3.HasKey("OperatingTimeRangeOperatingHoursClinicId", "OperatingTimeRangeOperatingHoursDay");
+
+                                            b3.ToTable("ClinicOperatingHours", "clinics");
+
+                                            b3.WithOwner()
+                                                .HasForeignKey("OperatingTimeRangeOperatingHoursClinicId", "OperatingTimeRangeOperatingHoursDay");
                                         });
 
                                     b2.Navigation("Value")
@@ -938,6 +1011,8 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 });
 
                             b1.Navigation("Hours");
+
+                            b1.Navigation("RestingTime");
                         });
 
                     b.Navigation("Address")
@@ -952,16 +1027,16 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                     b.Navigation("Info")
                         .IsRequired();
 
-                    b.Navigation("OperatingHours")
-                        .IsRequired();
+                    b.Navigation("OperatingHours");
                 });
 
             modelBuilder.Entity("Hospitaly.Modules.Clinic.Domain.Clinic.Entities.ClinicOwnerShip", b =>
                 {
                     b.HasOne("Hospitaly.Modules.Clinic.Domain.Clinic.Clinic", null)
-                        .WithMany("_ownerships")
+                        .WithMany("Ownerships")
                         .HasForeignKey("ClinicId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsOne("Hospitaly.Common.Domain.AuditInfo", "Audit", b1 =>
                         {
@@ -969,16 +1044,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("ClinicOwnerShipId");
 
@@ -1068,16 +1147,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("DepartmentId");
 
@@ -1109,16 +1192,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("OperatingLicenseId");
 
@@ -1184,16 +1271,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("ClinicAffiliationId");
 
@@ -1249,16 +1340,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("DoctorId");
 
@@ -1286,16 +1381,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("DoctorCredentialId");
 
@@ -1374,16 +1473,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("DoctorScheduleId");
 
@@ -1411,16 +1514,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("ScheduleBlockId");
 
@@ -1480,16 +1587,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("PatientId");
 
@@ -1729,16 +1840,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("MaintenanceBlockId");
 
@@ -1782,16 +1897,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("RoomId");
 
@@ -1865,16 +1984,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("SpecialtyId");
 
@@ -1898,16 +2021,20 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<Guid>("CreatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("CreatedBy");
 
                             b1.Property<DateTimeOffset>("CreatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("CreatedOnUtc");
 
                             b1.Property<Guid?>("UpdatedBy")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uuid")
+                                .HasColumnName("UpdatedBy");
 
                             b1.Property<DateTimeOffset?>("UpdatedOnUtc")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("timestamp with time zone")
+                                .HasColumnName("UpdatedOnUtc");
 
                             b1.HasKey("StaffMemberId");
 
@@ -1981,7 +2108,7 @@ namespace Hospitaly.Modules.Clinic.Infrastructure.Migrations
                     b.Navigation("OperatingLicense")
                         .IsRequired();
 
-                    b.Navigation("_ownerships");
+                    b.Navigation("Ownerships");
                 });
 
             modelBuilder.Entity("Hospitaly.Modules.Clinic.Domain.Clinic.Entities.Department", b =>

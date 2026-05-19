@@ -10,11 +10,12 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Common\Hospitaly.Common.Application\Hospitaly.Common.Application.csproj" />
       <ProjectReference Include="..\Hospitaly.Modules.Clinic.Domain\Hospitaly.Modules.Clinic.Domain.csproj" />
+      <ProjectReference Include="..\..\..\Modules\Users\PublicApi\PublicApi.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Clinic\Commands\" />
-      <Folder Include="Clinic\Queries\" />
+      <Folder Include="Doctor\Command\" />
+      <Folder Include="Doctor\Queries\" />
     </ItemGroup>
     
 

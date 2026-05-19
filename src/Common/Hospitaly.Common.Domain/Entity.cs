@@ -8,13 +8,14 @@ public abstract class Entity: IEquatable<Entity>
     public AuditInfo Audit { get; private set; }
     protected Entity(){}
     protected Entity(
-        AuditInfo audit)
+        AuditInfo audit,
+        Guid id)
     {
-        Id = audit.CreatedBy;
+        Id = id;
         Audit = audit;
     }
     protected void SetUpdated(Guid updatedBy, DateTimeOffset updatedOnUtc) =>
-        Audit = Audit.WithUpdate(updatedBy, updatedOnUtc);
+        Audit.ApplyUpdate(updatedBy, updatedOnUtc);
     public override bool Equals(object? obj)
     {
         return obj is Entity entity && Id.Equals(entity.Id);

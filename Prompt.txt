@@ -1,0 +1,369 @@
+﻿You are a senior software engineer and technical writer.
+
+I have a portfolio project built as a production-style full-stack system:
+
+- Modular Monolith backend built with C# / ASP.NET Core
+- Multiple backend modules and use cases
+- BFF layer on top of the backend
+- SPA frontend application
+- Some backend use cases are implemented in the UI
+- Other backend use cases exist but are not exposed in the UI because this project is mainly for CV / portfolio representation
+
+Your task is to scan the entire repository and create a professional, attractive, GitHub-ready `README.md`.
+
+Do not invent fake features. Only describe what exists in the codebase. If something is unclear, add a short note like: "This appears to..." instead of pretending.
+
+## What you must analyze
+
+Scan the project structure and identify:
+
+1. Main solution/application purpose
+2. Backend architecture
+3. Modules inside the modular monolith
+4. Main use cases / features
+5. Which features are exposed in the SPA UI
+6. Which features exist only in backend/application layer
+7. BFF responsibilities
+8. SPA responsibilities
+9. Database / persistence approach
+10. Authentication / authorization approach if present
+11. Technologies, libraries, patterns, and tools used
+12. Request flow from browser to SPA, BFF, backend, database, and external services
+13. How to run the project locally
+14. Important configuration files
+15. Future improvements / roadmap
+
+## README style
+
+Create a README that looks professional and appealing for recruiters and developers.
+
+The README should include:
+
+# Project Name
+
+A short, strong description of the project.
+
+Example tone:
+
+> A production-style modular monolith application built with ASP.NET Core, a BFF layer, and a modern SPA frontend. The project demonstrates clean architecture, modular boundaries, real-world backend use cases, and production-inspired application design.
+
+## Sections to include
+
+### 1. Overview
+
+Explain what the application does and why it exists.
+
+Mention that it is a portfolio/CV project designed to demonstrate backend architecture, modular monolith design, BFF pattern, SPA integration, and production-style structure.
+
+### 2. Architecture
+
+Explain the high-level architecture:
+
+```txt
+Browser
+  → SPA Frontend
+  → BFF ASP.NET Core Layer
+  → Modular Monolith Backend
+  → Database
+  → Optional services like Redis / Keycloak / Workers / Observability if present
+
+Add a placeholder for an architecture image:
+
+![Architecture Diagram](docs/images/architecture-placeholder.png)
+
+Also add a note:
+
+> Replace this placeholder with a real architecture diagram.
+3. Request Flow
+
+Explain how a request moves through the system.
+
+Example:
+
+User action in SPA
+  → HTTP request to BFF
+  → BFF authenticates/session-checks/proxies request
+  → Backend API executes use case
+  → Application layer coordinates domain logic
+  → Infrastructure persists or reads data
+  → Response returns to SPA
+
+Add placeholder:
+
+![Request Flow](docs/images/request-flow-placeholder.png)
+4. Project Structure
+
+Explain the folders/projects found in the repository.
+
+Use a tree like:
+
+src/
+  Backend/
+  BFF/
+  Frontend/
+  Modules/
+  Shared/
+  Tests/
+
+But generate the actual tree based on the real repository.
+
+For each important folder, explain what it does.
+
+5. Backend / Modular Monolith
+
+Explain:
+
+What modules exist
+What each module is responsible for
+How modules are separated
+Whether the project uses Clean Architecture / DDD / CQRS / MediatR / EF Core / Dapper / FluentValidation / etc., only if detected
+How use cases are organized
+
+Add a table like:
+
+| Module | Responsibility | Example Use Cases |
+|--------|----------------|------------------|
+| Users | Manages users and profiles | Register user, get user info |
+| Clinic | Manages clinic-related operations | Create clinic, update operating hours |
+
+Use real modules from the project.
+
+6. Implemented Use Cases
+
+Create two subsections:
+
+UI-exposed use cases
+
+List features that can be used from the SPA.
+
+Example:
+
+- User login/logout
+- View profile
+- Manage clinics
+- Update weekly operating hours
+Backend-only use cases
+
+List use cases that exist in backend code but are not exposed in the UI.
+
+Explain clearly:
+
+Some use cases are implemented only in the backend to demonstrate application architecture and business logic, even if they are not currently connected to the UI.
+
+7. BFF Layer
+
+Explain what the BFF does in this project.
+
+Mention only what exists in code, for example:
+
+Handles authentication flow
+Stores session data
+Proxies requests to backend
+Attaches access tokens
+Protects API access from the browser
+Provides frontend-specific endpoints
+
+Add placeholder:
+
+![BFF Flow](docs/images/bff-flow-placeholder.png)
+8. Frontend SPA
+
+Explain the SPA:
+
+Framework used
+Main pages
+Main UI flows
+How it communicates with the BFF
+What features are represented visually
+
+Add UI screenshot placeholders:
+
+## UI Preview
+
+### Home / Landing Page
+
+![Home Page](docs/images/ui-home-placeholder.png)
+
+### Dashboard
+
+![Dashboard](docs/images/ui-dashboard-placeholder.png)
+
+### Feature Page
+
+![Feature Page](docs/images/ui-feature-placeholder.png)
+
+Use better names based on actual pages found in the project.
+
+9. Technologies Used
+
+Create a clean table:
+
+| Area | Technology |
+|------|------------|
+| Backend | ASP.NET Core |
+| Frontend | Angular / React / Vue |
+| Architecture | Modular Monolith, Clean Architecture |
+| Database | PostgreSQL / SQL Server |
+| ORM | EF Core |
+| Querying | Dapper |
+| Auth | Keycloak / OpenID Connect |
+| Cache | Redis |
+| Reverse Proxy / BFF | YARP |
+| Validation | FluentValidation |
+| Messaging | ... |
+| Observability | OpenTelemetry / Grafana / Jaeger |
+| Containerization | Docker |
+
+Only include technologies actually found in the repository.
+
+10. Local Development Setup
+
+Explain how to run the project locally.
+
+Look for:
+
+docker-compose files
+backend launch settings
+frontend package.json
+environment files
+database configuration
+migrations
+README/scripts if already present
+
+Generate commands such as:
+
+docker compose up -d
+dotnet restore
+dotnet build
+dotnet run --project path/to/project.csproj
+npm install
+npm run dev
+
+But only include commands that make sense for this repository.
+
+If exact commands are uncertain, say:
+
+> Adjust the project paths based on your local setup.
+11. Configuration
+
+Explain important config files:
+
+appsettings.json
+appsettings.Development.json
+docker-compose.yml
+frontend environment files
+reverse proxy config
+authentication config
+database connection strings
+
+Do not expose secrets.
+
+Add a warning:
+
+> Never commit real secrets, passwords, tokens, or production connection strings to GitHub.
+12. Database
+
+Explain:
+
+Database engine if detected
+EF Core migrations if present
+DbContext organization
+Module-specific persistence if present
+Any seed data if present
+13. Authentication and Authorization
+
+If authentication exists, explain it.
+
+Include:
+
+Identity provider if detected
+Cookie/session/token flow if detected
+Role/permission system if detected
+SPA → BFF security idea
+
+Do not exaggerate security. Describe only what exists.
+
+14. Design Patterns and Practices Demonstrated
+
+Create a section useful for recruiters:
+
+This project demonstrates:
+
+- Modular Monolith architecture
+- Clean Architecture layering
+- CQRS-style use cases
+- Domain-driven design concepts
+- Repository and Unit of Work patterns
+- BFF pattern for SPA security
+- Centralized validation
+- API response wrapping
+- Docker-based local infrastructure
+- Separation between UI-facing features and backend business capabilities
+
+Only include real patterns found in code.
+
+15. Screenshots
+
+Create a section with image placeholders.
+
+Example:
+
+## Screenshots
+
+| Page | Preview |
+|------|---------|
+| Landing Page | ![Landing Page](docs/images/landing-page-placeholder.png) |
+| Login Page | ![Login Page](docs/images/login-placeholder.png) |
+| Dashboard | ![Dashboard](docs/images/dashboard-placeholder.png) |
+| Clinic Management | ![Clinic Management](docs/images/clinic-management-placeholder.png) |
+| Operating Hours | ![Operating Hours](docs/images/operating-hours-placeholder.png) |
+
+Generate page names from the frontend routes/components if possible.
+
+16. Roadmap / Future Improvements
+
+Add a professional roadmap:
+
+- Connect remaining backend use cases to the SPA
+- Add more automated tests
+- Add CI/CD pipeline
+- Add production deployment configuration
+- Improve observability dashboards
+- Add more complete documentation
+- Add real architecture diagrams
+
+Customize based on the project.
+
+17. Why This Project Matters
+
+Add a final section written for recruiters:
+
+Explain that this project is not just CRUD, but demonstrates:
+
+Real backend architecture
+Modular boundaries
+Production-inspired request flow
+SPA + BFF security pattern
+Scalable organization for future features
+Practical use of modern .NET ecosystem
+Output requirements
+Create or replace README.md.
+Use clean Markdown.
+Use professional but simple English.
+Add image placeholders using paths under:
+docs/images/
+Also create a list of recommended image files I should add later, for example:
+docs/images/architecture-placeholder.png
+docs/images/request-flow-placeholder.png
+docs/images/ui-dashboard-placeholder.png
+docs/images/ui-feature-placeholder.png
+Do not add fake screenshots.
+Do not claim the project is production-ready. Instead say "production-style" or "production-inspired".
+Keep the README attractive but honest.
+Make it useful for both recruiters and developers.
+After creating the README, summarize what sections were generated and what screenshots/images I should replace manually.
+
+You can also add this extra instruction at the end if you want the agent to be stricter:
+
+```md
+Important: Before writing the README, inspect the repository first. Do not generate a generic README. Use the actual project names, modules, use cases, frontend pages, technologies, and configuration files found in the codebase.

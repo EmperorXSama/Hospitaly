@@ -689,64 +689,6 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Hospitaly.Modules.Clinic.Application/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Hospitaly.Common.Application": "1.0.0",
-          "Hospitaly.Modules.Clinic.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Hospitaly.Modules.Clinic.Application.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Hospitaly.Modules.Clinic.Application.dll": {}
-        }
-      },
-      "Hospitaly.Modules.Clinic.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Hospitaly.Common.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Hospitaly.Modules.Clinic.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Hospitaly.Modules.Clinic.Domain.dll": {}
-        }
-      },
-      "Hospitaly.Modules.Clinic.Infrastructure/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Hospitaly.Common.Infrastructure": "1.0.0",
-          "Hospitaly.Modules.Clinic.Application": "1.0.0",
-          "Hospitaly.Modules.Clinic.Domain": "1.0.0",
-          "Hospitaly.Modules.Clinic.Presentation": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Hospitaly.Modules.Clinic.Infrastructure.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Hospitaly.Modules.Clinic.Infrastructure.dll": {}
-        }
-      },
-      "Hospitaly.Modules.Clinic.Presentation/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Hospitaly.Common.Infrastructure": "1.0.0",
-          "Hospitaly.Common.Presentation": "1.0.0",
-          "Hospitaly.Modules.Clinic.Application": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Hospitaly.Modules.Clinic.Presentation.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Hospitaly.Modules.Clinic.Presentation.dll": {}
-        }
-      },
       "Hospitaly.Modules.Users.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -787,6 +729,16 @@
         },
         "runtime": {
           "bin/placeholder/Hospitaly.Modules.Users.Presentation.dll": {}
+        }
+      },
+      "PublicApi/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/PublicApi.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PublicApi.dll": {}
         }
       }
     }
@@ -1733,26 +1685,6 @@
       "path": "../../../Common/Hospitaly.Common.Presentation/Hospitaly.Common.Presentation.csproj",
       "msbuildProject": "../../../Common/Hospitaly.Common.Presentation/Hospitaly.Common.Presentation.csproj"
     },
-    "Hospitaly.Modules.Clinic.Application/1.0.0": {
-      "type": "project",
-      "path": "../../Cliniks/Hospitaly.Modules.Clinic.Application/Hospitaly.Modules.Clinic.Application.csproj",
-      "msbuildProject": "../../Cliniks/Hospitaly.Modules.Clinic.Application/Hospitaly.Modules.Clinic.Application.csproj"
-    },
-    "Hospitaly.Modules.Clinic.Domain/1.0.0": {
-      "type": "project",
-      "path": "../../Cliniks/Hospitaly.Modules.Clinic.Domain/Hospitaly.Modules.Clinic.Domain.csproj",
-      "msbuildProject": "../../Cliniks/Hospitaly.Modules.Clinic.Domain/Hospitaly.Modules.Clinic.Domain.csproj"
-    },
-    "Hospitaly.Modules.Clinic.Infrastructure/1.0.0": {
-      "type": "project",
-      "path": "../../Cliniks/Hospitaly.Modules.Clinic.Infrastructure/Hospitaly.Modules.Clinic.Infrastructure.csproj",
-      "msbuildProject": "../../Cliniks/Hospitaly.Modules.Clinic.Infrastructure/Hospitaly.Modules.Clinic.Infrastructure.csproj"
-    },
-    "Hospitaly.Modules.Clinic.Presentation/1.0.0": {
-      "type": "project",
-      "path": "../../Cliniks/Hospitaly.Modules.Clinic.Presentation/Hospitaly.Modules.Clinic.Presentation.csproj",
-      "msbuildProject": "../../Cliniks/Hospitaly.Modules.Clinic.Presentation/Hospitaly.Modules.Clinic.Presentation.csproj"
-    },
     "Hospitaly.Modules.Users.Application/1.0.0": {
       "type": "project",
       "path": "../Hospitaly.Modules.Users.Application/Hospitaly.Modules.Users.Application.csproj",
@@ -1767,14 +1699,19 @@
       "type": "project",
       "path": "../Hospitaly.Modules.Users.Presentation/Hospitaly.Modules.Users.Presentation.csproj",
       "msbuildProject": "../Hospitaly.Modules.Users.Presentation/Hospitaly.Modules.Users.Presentation.csproj"
+    },
+    "PublicApi/1.0.0": {
+      "type": "project",
+      "path": "../PublicApi/PublicApi.csproj",
+      "msbuildProject": "../PublicApi/PublicApi.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Hospitaly.Common.Infrastructure >= 1.0.0",
-      "Hospitaly.Modules.Clinic.Infrastructure >= 1.0.0",
       "Hospitaly.Modules.Users.Application >= 1.0.0",
-      "Hospitaly.Modules.Users.Presentation >= 1.0.0"
+      "Hospitaly.Modules.Users.Presentation >= 1.0.0",
+      "PublicApi >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1813,14 +1750,14 @@
             "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Common\\Hospitaly.Common.Infrastructure\\Hospitaly.Common.Infrastructure.csproj"
             },
-            "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Cliniks\\Hospitaly.Modules.Clinic.Infrastructure\\Hospitaly.Modules.Clinic.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Cliniks\\Hospitaly.Modules.Clinic.Infrastructure\\Hospitaly.Modules.Clinic.Infrastructure.csproj"
-            },
             "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Hospitaly.Modules.Users.Application.csproj": {
               "projectPath": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Application\\Hospitaly.Modules.Users.Application.csproj"
             },
             "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Presentation\\Hospitaly.Modules.Users.Presentation.csproj": {
               "projectPath": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\Hospitaly.Modules.Users.Presentation\\Hospitaly.Modules.Users.Presentation.csproj"
+            },
+            "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\PublicApi\\PublicApi.csproj": {
+              "projectPath": "C:\\Users\\khali\\RiderProjects\\Hospitaly\\src\\Modules\\Users\\PublicApi\\PublicApi.csproj"
             }
           }
         }

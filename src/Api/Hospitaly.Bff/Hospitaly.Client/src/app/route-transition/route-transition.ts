@@ -15,7 +15,7 @@ type Direction = 'left' | 'right' | 'top' | 'bottom';
       width: 100vw;
       height: 100vh;
       z-index: 9999;
-      background-color: #faff69;
+      background-color: #000000;
       pointer-events: none;
       transform: translate(var(--tx, 0), var(--ty, 0));
     }
@@ -43,6 +43,7 @@ export class RouteTransition implements OnInit {
     const el = this.overlay();
     if (!el) return;
 
+    el.nativeElement.style.display = '';
     const { enterFrom, enterTo } = this.getOffsets(this.direction, false);
 
     el.nativeElement.style.setProperty('--tx', `${enterFrom.x}px`);
@@ -73,6 +74,9 @@ export class RouteTransition implements OnInit {
         translateY: [exitFrom.y, exitTo.y],
         duration: 400,
         ease: 'easeInOutCubic',
+        onComplete: () => {
+          el.nativeElement.style.display = 'none';
+        },
       });
     });
   }

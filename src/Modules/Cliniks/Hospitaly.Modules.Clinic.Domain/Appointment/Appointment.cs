@@ -34,7 +34,7 @@ public class Appointment : AggregateRoot
     {
     }
 
-    private Appointment(AuditInfo audit) : base(audit)
+    private Appointment(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 

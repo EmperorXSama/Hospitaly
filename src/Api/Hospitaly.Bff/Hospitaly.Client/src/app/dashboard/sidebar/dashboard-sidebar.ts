@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth';
 
@@ -25,17 +25,20 @@ export class DashboardSidebar {
     { label: 'Appointments', path: '/appointments', icon: 'calendar' },
     { label: 'Patients', path: '/patients', icon: 'users' },
     { label: 'Doctors', path: '/doctors', icon: 'activity' },
-    { label: 'Clinics', path: '/clinics', icon: 'building' },
+    { label: 'Clinics', path: '/dashboard/clinics', icon: 'building' },
     { label: 'Reports', path: '/reports', icon: 'chart' },
     { label: 'Profile', path: '/dashboard/profile', icon: 'user', exact: true },
     { label: 'Settings', path: '/settings', icon: 'settings' },
   ];
 
-  readonly bottomNav: NavItem[] = [
-    { label: 'Help & Information', path: '', icon: 'help' },
+  readonly clinicsSubNav: NavItem[] = [
+    { label: 'Manage Schedule', path: '/dashboard/clinics', icon: 'dot', exact: false },
   ];
+
+  readonly bottomNav: NavItem[] = [{ label: 'Help & Information', path: '', icon: 'help' }];
 
   logout(): void {
     this.authService.logout();
   }
 }
+

@@ -13,21 +13,21 @@ public sealed class GetCurrentUserDataQueryHandler(IDbConnectionFactory dbConnec
     {
         await using var connection = await dbConnectionFactory.OpenConnectionAsync();
 
-        const string sql =
-            """
-            SELECT
-                u."Id" AS UserId,
-                u."FirsName" AS FirstName,
-                u."LastName" AS LastName,
-                u."Email" AS Email,
-                u."RequiresOnboarding" AS RequiresOnboarding,
-                ur."RolesName" AS Role,
-                rp."PermissionCode" AS Permission
-            FROM users."Users" u
-            LEFT JOIN users."UserRoles" ur ON ur."UserId" = u."Id"
-            LEFT JOIN users."RolePermissions" rp ON rp."RoleName" = ur."RolesName"
-            WHERE u."Id" = @UserId
-            """;
+            const string sql =
+                """
+                SELECT
+                    u."Id" AS UserId,
+                    u."FirsName" AS FirstName,
+                    u."LastName" AS LastName,
+                    u."Email" AS Email,
+                    u."RequiresOnboarding" AS RequiresOnboarding,
+                    ur."RolesName" AS Role,
+                    rp."PermissionCode" AS Permission
+                FROM users."Users" u
+                LEFT JOIN users."UserRoles" ur ON ur."UserId" = u."Id"
+                LEFT JOIN users."RolePermissions" rp ON rp."RoleName" = ur."RolesName"
+                WHERE u."Id" = @UserId
+                """;
 
         List<UserDataRow> rows = (await connection.QueryAsync<UserDataRow>(sql, request)).AsList();
 

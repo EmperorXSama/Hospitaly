@@ -1,10 +1,12 @@
 ﻿using Hospitaly.Common.Infrastructure.Authentication;
 using Hospitaly.Common.Presentation;
+using Hospitaly.Modules.Users.Application.Abstractions.Identity;
 using Hospitaly.Modules.Users.Application.Users.Commands;
 using Hospitaly.Modules.Users.Application.Users.Commands.CompleteOnboarding;
 using Hospitaly.Modules.Users.Application.Users.Commands.RegisterUser;
 using Hospitaly.Modules.Users.Application.Users.Queries.GetCurrentUserData;
 using Hospitaly.Modules.Users.Application.Users.Queries.GetUserInfo;
+using Hospitaly.Modules.Users.Application.Users.Queries.SearchUsersByEmail;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +41,7 @@ public class UserController(ISender sender) : ControllerBase
     [Authorize]
     public async Task<ActionResult> GetProfile()
     {
-        var query = new GetUserInfoQuery(HttpContext.User.GetUserId());
+        var query = new GetUserInfoQuery(HttpContext.User.GetIdentityId());
         var result = await sender.Send(query);
 
         return Ok(result.ToApiResponse());
@@ -50,7 +52,7 @@ public class UserController(ISender sender) : ControllerBase
     [Authorize(Permissions.GetUser)]
     public async Task<ActionResult> Register()
     {
-        var query = new GetUserInfoQuery(HttpContext.User.GetUserId());
+        var query = new GetUserInfoQuery(HttpContext.User.GetIdentityId());
         var result = await sender.Send(query);
 
         return Ok(result.ToApiResponse());
@@ -65,6 +67,15 @@ public class UserController(ISender sender) : ControllerBase
         return Ok(result.ToApiResponse());
     }
 
+    [HttpGet("search-by-email")]
+    [Authorize]
+    public async Task<ActionResult> SearchByEmail([FromQuery] string email)
+    {
+        var query = new SearchUsersByEmailQuery(email);
+        var result = await sender.Send(query);
+        return Ok(result.ToApiResponse());
+    }
+
     [HttpGet("me")]
     [Authorize]
     public async Task<ActionResult> GetMe()
@@ -73,5 +84,13 @@ public class UserController(ISender sender) : ControllerBase
         var result = await sender.Send(query);
 
         return Ok(result.ToApiResponse());
+    }  
+    [HttpGet("login")]
+    [AllowAnonymous]
+    public async Task<ActionResult> Login(string userName, string password, [FromServices] IUserKeycloakRequests userKeycloakRequests)
+    {
+       var result = await userKeycloakRequests.GetUserTokens(userName, password);
+
+        return Ok(result);
     }
 }

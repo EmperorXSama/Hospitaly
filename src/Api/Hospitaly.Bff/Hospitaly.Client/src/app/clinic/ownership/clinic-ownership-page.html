@@ -1,0 +1,45 @@
+<div class="p-6 lg:p-8 space-y-6">
+  <div class="flex items-start gap-4">
+    <a routerLink="/dashboard/clinics" class="shrink-0 size-9 rounded-full bg-surface-card flex items-center justify-center text-muted hover:text-on-dark hover:bg-surface-elevated transition-colors mt-1">
+      <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </a>
+    <header>
+      <p class="text-xs uppercase tracking-[1.4px] text-muted">Clinic</p>
+      <h1 class="text-[30px] font-bold leading-tight tracking-[-0.8px] text-on-dark mt-1">Clinic Ownership</h1>
+      <p class="text-body mt-2">Manage clinic owners and ownership information.</p>
+    </header>
+  </div>
+
+  @if (isLoading()) {
+    <div class="rounded-xl border border-hairline bg-surface-card p-5 text-body">Loading ownership data...</div>
+  } @else if (error(); as errMsg) {
+    <div class="rounded-xl border border-hairline bg-surface-card p-5 text-accent-rose">{{ errMsg }}</div>
+  } @else if (ownerships().length === 0) {
+    <div class="rounded-xl border border-hairline bg-surface-card p-5 text-body">No ownership records found for this clinic.</div>
+  } @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+      @for (ownership of ownerships(); track ownership.id) {
+        <app-owner-card [ownership]="ownership" (transfer)="startTransfer($event)" />
+      }
+    </div>
+  }
+</div>
+
+@if (sourceForTransfer(); as source) {
+  @if (!targetUser()) {
+    <app-search-user-modal
+      [sourceOwnership]="source"
+      (close)="onSearchModalClose()"
+      (userSelected)="onTargetUserSelected($event)"
+    />
+  } @else {
+    <app-transfer-confirm-modal
+      [sourceOwnership]="source"
+      [targetUser]="targetUser()!"
+      (close)="onConfirmModalClose()"
+      (confirm)="confirmTransfer($event)"
+    />
+  }
+}

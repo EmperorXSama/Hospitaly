@@ -1,5 +1,4 @@
 ﻿using Hospitaly.Common.Domain;
-using Hospitaly.Modules.Clinic.Infrastructure;
 using Hospitaly.Modules.Users.Application.Abstractions.Data;
 using Hospitaly.Modules.Users.Domain.Users;
 using Microsoft.EntityFrameworkCore;

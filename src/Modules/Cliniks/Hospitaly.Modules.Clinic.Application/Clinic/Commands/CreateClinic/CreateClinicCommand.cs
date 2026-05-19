@@ -8,8 +8,8 @@ public sealed record CreateClinicCommand(
     string Description,
     string Street,
     string City,
-    string? Region,
-    string? PostalCode,
+    string Region,
+    string PostalCode,
     string Country,
-    string? Phone,
-    string? Email) : ICommand<Guid>;
+    string Phone,
+    string Email) : ICommand<Guid>;

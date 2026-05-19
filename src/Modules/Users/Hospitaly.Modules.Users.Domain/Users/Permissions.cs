@@ -3,6 +3,7 @@
 public sealed class Permission
 {
     public static readonly Permission BrowseClinic = new("clinics:read");
+    public static readonly Permission TransferClinicOwnership = new("clinics:ownership:transfer");
     public static readonly Permission ModifyUser = new("user:modify");
     public static readonly Permission GetUser = new("user:read");
 

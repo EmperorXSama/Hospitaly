@@ -14,25 +14,27 @@ public sealed class GetUserInfoQueryHandler(IDbConnectionFactory dbConnectionFac
         const string sql =
             $"""
              SELECT
-                 "Id" AS {nameof(UserResponse.UserId)},
-                 "Email" AS {nameof(UserResponse.Email)},
-                 "FirsName" AS {nameof(UserResponse.FirstName)},
-                 "LastName" AS {nameof(UserResponse.LastName)},
-                 "IdentityId" AS {nameof(UserResponse.IdentityId)},
-                 "Sex" AS {nameof(UserResponse.Sex)},
-                 "DateOfBirth" AS {nameof(UserResponse.DateOfBirth)},
-                 "BloodType" AS {nameof(UserResponse.BloodType)}
+                 "Id" AS "{nameof(UserResponse.UserId)}",
+                 "Email" AS "{nameof(UserResponse.Email)}",
+                 "FirsName" AS "{nameof(UserResponse.FirstName)}",
+                 "LastName" AS "{nameof(UserResponse.LastName)}",
+                 "IdentityId" AS "{nameof(UserResponse.IdentityId)}",
+                 "Sex" AS "{nameof(UserResponse.Sex)}",
+                 "DateOfBirth" AS "{nameof(UserResponse.DateOfBirth)}",
+                 "BloodType" AS "{nameof(UserResponse.BloodType)}",
+                 "CreatedOnUtc" AS "{nameof(UserResponse.CreatedOnUtc)}",
+                 "RequiresOnboarding" AS "{nameof(UserResponse.RequiresOnboarding)}"
              FROM users."Users"
-             WHERE "Id" = @UserId
+             WHERE "IdentityId" = @IdentityId
              """;
-        UserResponse? user = await connection.QuerySingleOrDefaultAsync<UserResponse>(sql, request);
+        UserResponse? user = await connection.QuerySingleOrDefaultAsync<UserResponse>(sql, new {IdentityId = request.UserIdentity});
 
         if (user is null)
         {
-            return UserErrors.UserNotFound(request.UserId);
+            return UserErrors.UserNotFound(request.UserIdentity);
         }
 
         return user;
     }
-    
+   
 }

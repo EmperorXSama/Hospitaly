@@ -45,3 +45,6 @@ C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Cli
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Presentation\obj\Debug\net10.0\refint\Hospitaly.Modules.Clinic.Presentation.dll
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Presentation\obj\Debug\net10.0\Hospitaly.Modules.Clinic.Presentation.pdb
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Presentation\obj\Debug\net10.0\ref\Hospitaly.Modules.Clinic.Presentation.dll
+C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Presentation\obj\Debug\net10.0\Hospitaly.Modules.Clinic.Presentation.sourcelink.json
+C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Presentation\bin\Debug\net10.0\PublicApi.dll
+C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\Hospitaly.Modules.Clinic.Presentation\bin\Debug\net10.0\PublicApi.pdb

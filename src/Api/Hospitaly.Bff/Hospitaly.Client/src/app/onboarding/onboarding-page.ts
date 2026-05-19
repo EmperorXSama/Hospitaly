@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { OnboardingService, CreateClinicRequest } from '../services/onboarding';
 import { AuthService } from '../services/auth';
+import { REGIONS, getCitiesForRegion } from '../shared/data/morocco-regions';
 
 @Component({
   selector: 'app-onboarding-page',
@@ -20,15 +21,20 @@ export class OnboardingPage {
   isLoading = signal(false);
   errorMessage = signal<string | null>(null);
 
+  readonly REGIONS = REGIONS;
+
   clinicName = '';
   clinicDescription = '';
   clinicStreet = '';
-  clinicCity = '';
-  clinicRegion = '';
+  clinicRegion = signal('');
+  clinicCity = signal('');
   clinicPostalCode = '';
-  clinicCountry = '';
   clinicPhone = '';
   clinicEmail = '';
+
+  availableCities = computed(() => getCitiesForRegion(this.clinicRegion()));
+
+  readonly COUNTRY = 'Morocco';
 
   selectRole(role: 'doctor' | 'clinic' | 'none'): void {
     this.selectedRole.set(role);
@@ -54,7 +60,7 @@ export class OnboardingPage {
   }
 
   submitClinic(): void {
-    if (!this.clinicName || !this.clinicStreet || !this.clinicCity || !this.clinicCountry) {
+    if (!this.clinicName || !this.clinicStreet || !this.clinicRegion() || !this.clinicCity()) {
       this.errorMessage.set('Please fill in all required fields.');
       return;
     }
@@ -66,10 +72,10 @@ export class OnboardingPage {
       name: this.clinicName,
       description: this.clinicDescription,
       street: this.clinicStreet,
-      city: this.clinicCity,
-      region: this.clinicRegion || null,
+      city: this.clinicCity(),
+      region: this.clinicRegion(),
       postalCode: this.clinicPostalCode || null,
-      country: this.clinicCountry,
+      country: this.COUNTRY,
       phone: this.clinicPhone || null,
       email: this.clinicEmail || null,
     };

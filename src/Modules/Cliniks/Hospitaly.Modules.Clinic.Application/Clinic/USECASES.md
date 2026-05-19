@@ -1,140 +1,145 @@
-# Clinic Aggregate — Use Cases
+# Clinic Aggregate Catalog
+
+This catalog is focused on the `Clinic` aggregate and its direct entities only:
+- `OperatingLicense` (1:1)
+- `Department` (1:many)
+- `ClinicOwnerShip` (1:many)
+- `ClinicSpecialty` (link entity for Clinic <-> Specialty)
 
 ## Commands (Write Side)
 
-### 1. Create Clinic
-- **Reason**: Onboard a new clinic into the system
-- **Input**: `ClinicInfo` (Name, TradingName, Description, LogoUrl?), `ClinicAddress` (Street, City, Region?, PostalCode?, Country, Latitude?, Longitude?), `ClinicContactInfo` (PhoneNumber?, Email?, Website?), `OperatingHours[]`
-- **Output**: `ClinicId` (Guid)
+### Implemented
 
-### 2. Update Clinic Info
-- **Reason**: Clinic name/description changes
-- **Input**: `ClinicId`, `ClinicInfo`
-- **Output**: `Success`
+1. **CreateClinicCommand**
+   - **Reason**: Onboard a new clinic with initial license, hours, and full ownership for creator.
+   - **Input (DTO/Command)**: `UserId`, `Name`, `Description`, `Street`, `City`, `Region?`, `PostalCode?`, `Country`, `Phone?`, `Email?`
+   - **Output**: `ClinicId`
 
-### 3. Update Clinic Address
-- **Reason**: Clinic relocates
-- **Input**: `ClinicId`, `ClinicAddress`
-- **Output**: `Success`
+### Planned (Clinic + child entities)
 
-### 4. Update Clinic Contact Info
-- **Reason**: Phone/email/website changes
-- **Input**: `ClinicId`, `ClinicContactInfo`
-- **Output**: `Success`
+ 2. **UpdateClinicInfoCommand** ✅
+   - **Reason**: Edit clinic profile metadata.
+   - **Input**: `ClinicId`, `Name`, `TradingName?`, `Description`, `LogoUrl?`, `UserId`
+   - **Output**: `Success`
 
-### 5. Set Operating Hours
-- **Reason**: Clinic changes its weekly schedule
-- **Input**: `ClinicId`, `OperatingHours[]` (per DayOfWeek, with optional OperatingTimeRange + IsResting flag)
-- **Output**: `Success`
+ 3. **UpdateClinicAddressCommand** ✅
+   - **Reason**: Relocate clinic or fix address details.
+   - **Input**: `ClinicId`, `Street`, `City`, `Region?`, `PostalCode?`, `Country`, `Latitude?`, `Longitude?`, `UserId`
+   - **Output**: `Success`
 
-### 6. Change Clinic Status
-- **Reason**: Suspend, deactivate, or permanently close the clinic
-- **Input**: `ClinicId`, `ClinicStatus` (Active|Inactive|Suspended|PermanentlyClosed)
-- **Output**: `Success`
+ 4. **UpdateClinicContactInfoCommand** ✅
+   - **Reason**: Update phone/email/website.
+   - **Input**: `ClinicId`, `Phone?`, `Email?`, `Website?`, `UserId`
+   - **Output**: `Success`
 
-### 7. Add License
-- **Reason**: Register a new operating license
-- **Input**: `ClinicId`, `LicenseNumber`, `IssuingAuthority`, `LicenseType`, `LicenceValidityPeriod` (Start, End), `LicenceAdministrativeStatus`
-- **Output**: `LicenseId` (Guid)
+ 5. **SetClinicOperatingHoursCommand** ✅ (pre-existing)
+   - **Reason**: Define/edit weekly schedule.
+   - **Input**: `ClinicId`, `OperatingHours[]`, `UserId`
+   - **Output**: `Success`
 
-### 8. Update License Administrative Status
-- **Reason**: Regulatory body suspends/revokes/activates the license
-- **Input**: `ClinicId`, `LicenseId`, `LicenceAdministrativeStatus` (Active|Suspended|Revoked)
-- **Output**: `Success`
+ 6. **ReplaceOperatingLicenseCommand** ✅
+   - **Reason**: Add or replace operating license details.
+   - **Input**: `ClinicId`, `LicenseNumber`, `IssuingAuthority`, `LicenseType`, `ValidityStart`, `ValidityEnd?`, `AdministrativeStatus`, `UserId`
+   - **Output**: `Success`
 
-### 9. Add Department
-- **Reason**: Clinic creates a new department
-- **Input**: `ClinicId`, `Name`, `Code`, `ParentId?`
-- **Output**: `DepartmentId` (Guid)
+ 7. **UpdateOperatingLicenseStatusCommand** ✅
+   - **Reason**: Activate/suspend/revoke license.
+   - **Input**: `ClinicId`, `AdministrativeStatus`, `UserId`
+   - **Output**: `Success`
 
-### 10. Update Department
-- **Reason**: Department name/code/parent changes
-- **Input**: `ClinicId`, `DepartmentId`, `Name`, `Code`, `ParentId?`
-- **Output**: `Success`
+ 8. **AddDepartmentCommand** ✅
+   - **Reason**: Add new department under clinic.
+   - **Input**: `ClinicId`, `Name`, `Code`, `IsActive`, `ParentDepartmentId?`, `UserId`
+   - **Output**: `DepartmentId`
 
-### 11. Activate/Deactivate Department
-- **Reason**: Temporarily close or reopen a department
-- **Input**: `ClinicId`, `DepartmentId`, `IsActive`
-- **Output**: `Success`
+ 9. **UpdateDepartmentCommand** ✅
+   - **Reason**: Rename/recode/re-parent department.
+   - **Input**: `ClinicId`, `DepartmentId`, `Name`, `Code`, `ParentDepartmentId?`, `UserId`
+   - **Output**: `Success`
 
-### 12. Add Specialty Link
-- **Reason**: Clinic starts offering a new specialty
-- **Input**: `ClinicId`, `SpecialtyId`, `ConsultationFee?`
-- **Output**: `Success`
+10. **SetDepartmentActiveStateCommand** ✅
+    - **Reason**: Open/close department operationally.
+    - **Input**: `ClinicId`, `DepartmentId`, `IsActive`, `UserId`
+    - **Output**: `Success`
 
-### 13. Update Specialty Link
-- **Reason**: Consultation fee or active status changes for a linked specialty
-- **Input**: `ClinicId`, `SpecialtyId`, `ConsultationFee?`, `IsActive`
-- **Output**: `Success`
+11. **AddClinicSpecialtyCommand** ✅
+    - **Reason**: Link clinic to a specialty offered.
+    - **Input**: `ClinicId`, `SpecialtyId`, `IsActive`, `ConsultationFee?`, `UserId`
+    - **Output**: `Success`
 
-### 14. Reallocate Ownership
-- **Reason**: Complete ownership restructure (replaces all allocations, enforces 100% invariant)
-- **Input**: `ClinicId`, `ClinicOwnerShip[]` (OwnerId, OwnerShipType, SharePercentage, OwnershipEffectiveRange), `UserId`, `Timestamp`
-- **Output**: `Success`
+12. **UpdateClinicSpecialtyCommand** ✅
+    - **Reason**: Adjust specialty fee or state.
+    - **Input**: `ClinicId`, `SpecialtyId`, `IsActive`, `ConsultationFee?`, `UserId`
+    - **Output**: `Success`
 
-### 15. Transfer Ownership Percentage
-- **Reason**: An owner reduces their share, distributing it among remaining owners
-- **Input**: `ClinicId`, `SourceOwnerId`, `TargetAllocations[]` (OwnerId, decimal percentage), `SourceReductionAmount`, `UserId`, `Timestamp`
-- **Output**: `Success`
+13. **RemoveClinicSpecialtyCommand** ✅
+    - **Reason**: Unlink specialty from clinic offerings.
+    - **Input**: `ClinicId`, `SpecialtyId`, `UserId`
+    - **Output**: `Success`
 
-### 16. Update Owner Share
-- **Reason**: Adjust a single owner's share percentage
-- **Input**: `ClinicId`, `OwnerShipId`, `NewSharePercentage`, `UserId`, `Timestamp`
-- **Output**: `Success`
+14. **ReAllocateClinicOwnershipCommand** ✅
+    - **Reason**: Full ownership restructure while enforcing active-share total = 100%.
+    - **Input**: `ClinicId`, `Owners[]` (`OwnershipId?`, `OwnerId`, `OwnerShipType`, `SharePercentage`, `EffectiveStart`, `EffectiveEnd?`, `Status`), `UserId`, `UpdatedOn`
+    - **Output**: `Success`
 
-### 17. Expire Ownership
-- **Reason**: Ownership period naturally ends
-- **Input**: `ClinicId`, `OwnerShipId`, `UserId`, `Timestamp`
-- **Output**: `Success`
+15. **TransferClinicOwnershipPercentageCommand** ✅
+    - **Reason**: Move part of one owner share to one or many other owners.
+    - **Input**: `ClinicId`, `FromOwnershipId`, `RetainedPercentage`, `Transfers[]` (`OwnershipId`, `SharePercentage`), `UserId`, `UpdatedOn`
+    - **Output**: `Success`
 
-### 18. Terminate Ownership
-- **Reason**: Force-remove an owner (relinquished/terminated)
-- **Input**: `ClinicId`, `OwnerShipId`, `UserId`, `Timestamp`
-- **Output**: `Success`
+16. **UpdateClinicOwnerShareCommand** ✅
+    - **Reason**: Adjust single owner percentage.
+    - **Input**: `ClinicId`, `OwnershipId`, `NewSharePercentage`, `UserId`, `UpdatedOn`
+    - **Output**: `Success`
 
----
+17. **ExpireClinicOwnershipCommand** ✅
+    - **Reason**: Mark ownership expired after end date.
+    - **Input**: `ClinicId`, `OwnershipId`, `UserId`, `UpdatedOn`
+    - **Output**: `Success`
+
+18. **TerminateClinicOwnershipCommand** ✅
+    - **Reason**: Force end active ownership.
+    - **Input**: `ClinicId`, `OwnershipId`, `UserId`, `UpdatedOn`
+    - **Output**: `Success`
+
+19. **ApplyClinicOwnershipEndDateCommand** ✅
+    - **Reason**: Set or change ownership end date.
+    - **Input**: `ClinicId`, `OwnershipId`, `EffectiveUntil`, `UserId`, `UpdatedOn`
+    - **Output**: `Success`
 
 ## Queries (Read Side)
 
-### 19. Get Clinic By Id
-- **Reason**: View full clinic details
-- **Input**: `ClinicId`
-- **Output**: `ClinicDetailDto` (Info, Address, ContactInfo, Status, OperatingHours[], Departments[], Ownerships[], License, Specialties[])
+1. **GetClinicByIdQuery** ✅
+   - **Reason**: Read complete clinic aggregate view.
+   - **Input**: `ClinicId`
+   - **Output**: `ClinicDetailDto`
 
-### 20. Search Clinics
-- **Reason**: Find clinics by name/status/city
-- **Input**: `SearchTerm?`, `ClinicStatus?`, `City?`, `Page`, `PageSize`
-- **Output**: `PaginatedResult<ClinicSummaryDto>` (Id, Name, City, Status, IsOperational)
+ 2. **SearchClinicsQuery** ✅
+   - **Reason**: Discover clinics by basic filters.
+   - **Input**: `SearchTerm?`, `City?`, `Page`, `PageSize`
+   - **Output**: `PaginatedResult<ClinicSummaryDto>`
 
-### 21. Get Clinic Departments
-- **Reason**: View hierarchical department structure
-- **Input**: `ClinicId`
-- **Output**: `DepartmentTreeDto[]` (Id, Name, Code, IsActive, Children[])
+3. **GetClinicDepartmentsQuery** ✅
+   - **Reason**: Show department hierarchy.
+   - **Input**: `ClinicId`
+   - **Output**: `DepartmentTreeDto[]`
 
-### 22. Get Clinic Ownerships
-- **Reason**: View current and historical ownership structure
-- **Input**: `ClinicId`
-- **Output**: `OwnershipDto[]` (OwnerId, Type, SharePercentage, EffectivePeriod, Status)
+4. **GetClinicOwnershipsQuery** ✅
+   - **Reason**: Show active/history ownership allocations.
+   - **Input**: `ClinicId`
+   - **Output**: `ClinicOwnershipDto[]`
 
-### 23. Get Clinic License
-- **Reason**: Verify clinic's license validity and operational status
-- **Input**: `ClinicId`
-- **Output**: `LicenseDto` (LicenseNumber, IssuingAuthority, Type, ValidityPeriod, AdministrativeStatus, IsOperational)
+5. **GetClinicSpecialtiesQuery** ✅
+   - **Reason**: Show linked specialties and fees.
+   - **Input**: `ClinicId`
+   - **Output**: `ClinicSpecialtyDto[]`
 
-### 24. Get Clinic Operating Hours
-- **Reason**: Know when the clinic is open
-- **Input**: `ClinicId`
-- **Output**: `OperatingHoursDto[]` (DayOfWeek, OpenTime?, CloseTime?, IsResting, IsOffDay)
+6. **GetClinicOperatingLicenseQuery** ✅
+   - **Reason**: Validate legal/operational license state.
+   - **Input**: `ClinicId`
+   - **Output**: `OperatingLicenseDto`
 
----
-
-## Proposed Domain Events
-
-These events should be raised when aggregate state changes:
-
-- `ClinicCreatedDomainEvent`
-- `ClinicStatusChangedDomainEvent`
-- `ClinicInfoUpdatedDomainEvent`
-- `ClinicLicenseStatusChangedDomainEvent`
-- `ClinicOwnershipReallocatedDomainEvent`
-- `ClinicDepartmentAddedDomainEvent`
+7. **GetClinicOperatingHoursQuery** ✅ (pre-existing)
+   - **Reason**: Show opening schedule.
+   - **Input**: `ClinicId`
+   - **Output**: `OperatingHoursDto[]`

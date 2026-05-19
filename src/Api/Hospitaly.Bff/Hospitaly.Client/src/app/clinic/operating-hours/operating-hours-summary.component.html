@@ -1,0 +1,11 @@
+<section class="bg-surface-card border border-hairline rounded-xl p-4 space-y-3">
+  <h2 class="text-base font-semibold text-on-dark">Weekly Summary</h2>
+  <div class="space-y-2 text-sm">
+    <div class="flex justify-between"><span class="text-body">Open days</span><span class="text-primary">{{ openDays() }}</span></div>
+    <div class="flex justify-between"><span class="text-body">Closed days</span><span class="text-body-strong">{{ closedDays() }}</span></div>
+    <div class="flex justify-between"><span class="text-body">Days with resting time</span><span class="text-body-strong">{{ restingDays() }}</span></div>
+    <div class="flex justify-between"><span class="text-body">Earliest opening</span><span class="text-body-strong">{{ earliestOpening() ?? 'N/A' }}</span></div>
+    <div class="flex justify-between"><span class="text-body">Latest closing</span><span class="text-body-strong">{{ latestClosing() ?? 'N/A' }}</span></div>
+    <div class="flex justify-between"><span class="text-body">Today</span><span class="text-primary">{{ todayStatus() }}</span></div>
+  </div>
+</section>

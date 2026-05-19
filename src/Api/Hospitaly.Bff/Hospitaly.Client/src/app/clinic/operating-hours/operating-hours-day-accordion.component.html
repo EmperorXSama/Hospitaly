@@ -1,0 +1,42 @@
+<div class="rounded-lg border border-hairline overflow-hidden" [class.opacity-60]="dayForm.get('isClosed')?.value && !expanded" [formGroup]="dayForm">
+  <div class="px-3 py-3 bg-surface-soft flex items-center gap-2">
+    <input type="checkbox" formControlName="isClosed" class="h-4 w-4 accent-primary" />
+    <button type="button" (click)="toggled.emit()" class="flex-1 text-left flex items-center justify-between cursor-pointer">
+      <span class="text-sm font-semibold text-on-dark">{{ dayForm.get('day')?.value }}</span>
+      <span class="text-xs text-muted mr-2">{{ summary() }}</span>
+      <svg class="h-4 w-4 text-muted transition-transform" [class.rotate-180]="expanded" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+  </div>
+
+  @if (expanded) {
+    <div class="p-3 bg-surface-card space-y-3">
+      <div class="grid grid-cols-2 gap-2">
+        <label class="text-xs text-body">Open time<input type="time" formControlName="openTime" class="mt-1 w-full rounded-md border border-hairline bg-canvas px-2 py-1.5 text-sm text-on-dark" /></label>
+        <label class="text-xs text-body">Close time<input type="time" formControlName="closeTime" class="mt-1 w-full rounded-md border border-hairline bg-canvas px-2 py-1.5 text-sm text-on-dark" /></label>
+      </div>
+
+      @if (hasRestingTime) {
+        <div class="grid grid-cols-2 gap-2">
+          <label class="text-xs text-body">Resting start<input type="time" formControlName="restingStartTime" class="mt-1 w-full rounded-md border border-hairline bg-canvas px-2 py-1.5 text-sm text-on-dark" /></label>
+          <label class="text-xs text-body">Resting end<input type="time" formControlName="restingEndTime" class="mt-1 w-full rounded-md border border-hairline bg-canvas px-2 py-1.5 text-sm text-on-dark" /></label>
+        </div>
+      }
+
+      <div class="flex flex-wrap gap-2 text-xs">
+        @if (!hasRestingTime) {
+          <button type="button" (click)="addResting.emit()" class="px-2 py-1 rounded border border-hairline text-body hover:bg-surface-elevated cursor-pointer">Add resting time</button>
+        } @else {
+          <button type="button" (click)="removeResting.emit()" class="px-2 py-1 rounded border border-hairline text-body hover:bg-surface-elevated cursor-pointer">Remove resting time</button>
+        }
+        <button type="button" (click)="copyToAll.emit()" class="px-2 py-1 rounded border border-hairline text-body hover:bg-surface-elevated cursor-pointer">Copy this day to all</button>
+        <button type="button" (click)="copyToWeekdays.emit()" class="px-2 py-1 rounded border border-hairline text-body hover:bg-surface-elevated cursor-pointer">Copy this day to weekdays</button>
+      </div>
+
+      @if (dayForm.errors?.['missingTimes']) { <p class="text-xs text-error">Open and close times are required.</p> }
+      @if (dayForm.errors?.['closeBeforeOpen']) { <p class="text-xs text-error">Close time must be after open time.</p> }
+      @if (dayForm.errors?.['restingIncomplete']) { <p class="text-xs text-error">Both resting times are required.</p> }
+      @if (dayForm.errors?.['restingOrder']) { <p class="text-xs text-error">Resting end must be after resting start.</p> }
+      @if (dayForm.errors?.['restingOutsideHours']) { <p class="text-xs text-error">Resting time must be inside operating hours.</p> }
+    </div>
+  }
+</div>

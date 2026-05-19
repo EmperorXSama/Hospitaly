@@ -50,6 +50,11 @@ public static class DoctorErrors
             "Doctor.NotFound",
             $"The doctor with identifier {doctorId} was not found.");
 
+    public static Error CredentialNotFound(Guid credentialId) =>
+        Error.NotFound(
+            "Doctor.Credential.NotFound",
+            $"The credential with identifier {credentialId} was not found.");
+
     public static Error NoRequiredCredentials(Guid doctorId) =>
         Error.Validation(
             "Doctor.NoRequiredCredentials",
@@ -60,10 +65,41 @@ public static class DoctorErrors
             "Doctor.CannotBeActivatedWithExpiredCredentials",
             $"The doctor with identifier {doctorId} cannot be activated because one or more credentials are expired or not verified.");
 
+    public static Error DoctorAlreadyActive(Guid doctorId) =>
+        Error.Conflict(
+            "Doctor.AlreadyActive",
+            $"The doctor with identifier {doctorId} is already active.");
+
+    public static Error DoctorAlreadyInactive(Guid doctorId) =>
+        Error.Conflict(
+            "Doctor.AlreadyInactive",
+            $"The doctor with identifier {doctorId} is already inactive.");
+
+    // DoctorSpecialty Errors
+    public static Error SpecialtyNotFound(Guid specialtyId) =>
+        Error.NotFound(
+            "Doctor.Specialty.NotFound",
+            $"The specialty with identifier {specialtyId} was not found for this doctor.");
+
+    public static Error DuplicateSpecialty(Guid specialtyId) =>
+        Error.Conflict(
+            "Doctor.Specialty.Duplicate",
+            $"The specialty with identifier {specialtyId} is already linked to this doctor.");
+
     // ClinicAffiliation Errors
+    public static Error AffiliationNotFound(Guid clinicId) =>
+        Error.NotFound(
+            "Doctor.Affiliation.NotFound",
+            $"The affiliation with clinic identifier {clinicId} was not found for this doctor.");
+
     public static Error AffiliationAlreadyTerminated() =>
         Error.Conflict(
             "Doctor.Affiliation.AlreadyTerminated",
             "The affiliation has already been terminated and cannot be modified.");
+
+    public static Error AlreadyAffiliatedWithClinic(Guid clinicId) =>
+        Error.Conflict(
+            "Doctor.Affiliation.AlreadyAffiliated",
+            $"The doctor is already affiliated with clinic {clinicId}.");
 }
 

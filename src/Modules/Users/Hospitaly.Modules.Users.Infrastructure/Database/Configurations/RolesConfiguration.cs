@@ -14,7 +14,10 @@ public class RolesConfiguration : IEntityTypeConfiguration<Role>
 
         builder.HasData(
             Role.Administrator,
-            Role.Member
+            Role.Member,
+            Role.HospitalAdministrator,
+            Role.Patient,
+            Role.Doctor
         );
         builder
             .HasMany<User>()

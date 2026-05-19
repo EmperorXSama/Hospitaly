@@ -66,6 +66,12 @@ public class ClinicSpecialty : IEquatable<ClinicSpecialty>
         return new ClinicSpecialty(clinicId, specialtyId, isActive, consultationFee);
     }
 
+    public void Update(bool isActive, decimal? consultationFee)
+    {
+        IsActive = isActive;
+        ConsultationFee = consultationFee;
+    }
+
     public bool Equals(ClinicSpecialty? other)
     {
         if (other is null) return false;

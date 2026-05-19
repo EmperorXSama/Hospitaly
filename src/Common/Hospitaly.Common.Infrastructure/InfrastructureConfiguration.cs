@@ -2,6 +2,7 @@
 using Hospitaly.Common.Infrastructure.Authentication;
 using Hospitaly.Common.Infrastructure.Authorization;
 using Hospitaly.Common.Infrastructure.Data;
+using Hospitaly.Common.Infrastructure.Seeder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
@@ -17,6 +18,8 @@ public static class InfrastructureConfiguration
         services.AddAuthenticationInternal();
         services.AddAuthorizationInternal();
         services.AddDbFactory(databaseConnectionString);
+        
+        services.AddScoped<DatabaseSeeder>();
         return services;
     }
 

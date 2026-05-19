@@ -103,3 +103,4 @@ C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\tests\Hospitaly.Modul
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\tests\Hospitaly.Modules.Cliniks.Domain\obj\Debug\net10.0\Hospitaly.Modules.Cliniks.Domain.pdb
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\tests\Hospitaly.Modules.Cliniks.Domain\obj\Debug\net10.0\Hospitaly.Modules.Cliniks.Domain.genruntimeconfig.cache
 C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\tests\Hospitaly.Modules.Cliniks.Domain\obj\Debug\net10.0\ref\Hospitaly.Modules.Cliniks.Domain.dll
+C:\Users\khali\RiderProjects\Hospitaly\src\Modules\Cliniks\tests\Hospitaly.Modules.Cliniks.Domain\obj\Debug\net10.0\Hospitaly.Modules.Cliniks.Domain.sourcelink.json

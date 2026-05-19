@@ -18,6 +18,14 @@ public class DoctorScheduleConfiguration : IEntityTypeConfiguration<DoctorSchedu
         builder.Property(ds => ds.DoctorId).IsRequired();
         builder.Property(ds => ds.ClinicId).IsRequired();
 
+        builder.OwnsOne(ds => ds.Audit, audit =>
+        {
+            audit.Property(a => a.CreatedBy).HasColumnName("CreatedBy").IsRequired();
+            audit.Property(a => a.CreatedOnUtc).HasColumnName("CreatedOnUtc").HasColumnType("timestamp with time zone").IsRequired();
+            audit.Property(a => a.UpdatedBy).HasColumnName("UpdatedBy");
+            audit.Property(a => a.UpdatedOnUtc).HasColumnName("UpdatedOnUtc").HasColumnType("timestamp with time zone");
+        });
+
         builder.HasMany<ScheduleBlock>("_blocks")
             .WithOne()
             .HasForeignKey(sb => sb.DoctorScheduleId)

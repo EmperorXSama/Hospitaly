@@ -19,7 +19,7 @@ public class ScheduleBlock : Entity
     {
     }
 
-    private ScheduleBlock(AuditInfo audit) : base(audit)
+    private ScheduleBlock(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 
@@ -30,7 +30,7 @@ public class ScheduleBlock : Entity
         TimeRange timeRange,
         BlockType blockType,
         int maxAppointmentsAllowed,
-        AuditInfo audit) : base(audit)
+        AuditInfo audit) : base(audit,Guid.NewGuid())
     {
         DoctorScheduleId = doctorScheduleId;
         DayOfWeek = dayOfWeek;

@@ -25,7 +25,6 @@ public class User : AggregateRoot
     {
         RequiresOnboarding = false;
     }
-
     public static ErrorOr<User> Create(
         string identityId,
         string email,
@@ -52,5 +51,13 @@ public class User : AggregateRoot
         user.RaiseDomainEvent(new UserRegisteredDomainEvent(user.Id));
 
         return user;
+    }
+
+    public ErrorOr<Success> AddRole(Role role)
+    {
+        if (_roles.Contains(role))
+            return Result.Success;
+        _roles.Add(role);
+        return Result.Success;
     }
 }

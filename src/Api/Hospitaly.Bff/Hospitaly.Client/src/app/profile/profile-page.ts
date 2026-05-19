@@ -1,36 +1,61 @@
-import { Component, ChangeDetectionStrategy, inject, AfterViewInit, ElementRef, viewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, computed, signal, effect } from '@angular/core';
 import { AuthService } from '../services/auth';
-import { animate } from 'animejs';
+import { UserDataService } from '../services/user-data';
+import { UserProfile } from '../models/user-profile';
+import { UserInformationHeaderComponent, UserInfo } from './user-information-header/user-information-header';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [],
+  imports: [UserInformationHeaderComponent],
   templateUrl: './profile-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfilePage implements AfterViewInit {
+export class ProfilePage {
   private readonly authService = inject(AuthService);
+  private readonly userDataService = inject(UserDataService);
 
   profile = this.authService.profile;
   user = this.authService.user;
 
-  readonly cardContainer = viewChild.required<ElementRef<HTMLElement>>('cardContainer');
+  readonly profileData = signal<UserProfile | null>(null);
 
-  ngAfterViewInit(): void {
-    animate('#profile-header', {
-      translateY: [24, 0],
-      opacity: [0, 1],
-      easing: 'easeOutCubic',
-      duration: 600,
+  constructor() {
+    this.userDataService.getProfileData().subscribe({
+      next: (data) => this.profileData.set(data),
     });
+  }
 
-    const cards = [...this.cardContainer().nativeElement.querySelectorAll(':scope > *')];
-    animate(cards, {
-      translateY: [32, 0],
-      opacity: [0, 1],
-      easing: 'easeOutCubic',
-      duration: 500,
-      delay: 120,
+  readonly userInfo = computed<UserInfo>(() => {
+    const p = this.profile();
+    const pd = this.profileData();
+    return {
+      fullName: p?.userName ?? this.user()?.['name'] ?? 'User',
+      email: p?.email ?? this.user()?.['email'] ?? '—',
+      sex: pd?.sex ?? '—',
+      age: pd?.dateOfBirth ? this.computeAge(pd.dateOfBirth) : 0,
+      bloodType: pd?.bloodType ?? '—',
+      registeredDate: pd?.createdOnUtc ? this.formatDate(pd.createdOnUtc) : '—',
+      roles: p?.roles?.length ? p.roles : ['Member'],
+    };
+  });
+
+  private computeAge(dateOfBirth: string): number {
+    const birth = new Date(dateOfBirth);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  private formatDate(iso: string): string {
+    const date = new Date(iso);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
     });
   }
 }

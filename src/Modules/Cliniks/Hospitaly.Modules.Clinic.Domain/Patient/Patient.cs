@@ -17,7 +17,7 @@ public class Patient : AggregateRoot
     {
     }
 
-    protected Patient(AuditInfo audit) : base(audit)
+    protected Patient(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 

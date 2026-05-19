@@ -17,7 +17,7 @@ public class DoctorSchedule : AggregateRoot
     {
     }
 
-    protected DoctorSchedule(AuditInfo audit) : base(audit)
+    protected DoctorSchedule(AuditInfo audit) : base(audit,Guid.NewGuid())
     {
     }
 
